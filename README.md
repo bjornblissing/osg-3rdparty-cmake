@@ -16,28 +16,33 @@ So far these scripts has been tested with successfully with:
 zlib
 ----
 Sources for zlib can be downloaded from:
+
 http://www.zlib.net/
 
 
 libpng
 ------
 Sources for libpng can be downloaded from:
+
 http://www.libpng.org/pub/png/libpng.html
 
 
 libjpeg
 -------
 Sources for libjpeg can be downloaded from:
+
 http://www.ijg.org/
 
 
 libtiff
 -------
-Sources for libTIFFcan be downloaded from:
+Sources for libtiff can be downloaded from:
+
 http://www.libtiff.org
 
 
 FreeType
 --------
 Sources for FreeType can be downloaded from:
+
 http://www.freetype.org/
