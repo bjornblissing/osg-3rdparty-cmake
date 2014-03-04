@@ -4,7 +4,7 @@ SET(TARGET_LIB freetype)
 
 
 IF(MSVC)
-	SET(ftdebug "builds/windows/ftdebug.c")
+	SET(ftdebug "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c")
 ENDIF()
 
 CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
@@ -13,82 +13,83 @@ CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
 SET(FREETYPE_VERSION "2.5.2")
 
 SET(FREETYPE_PUBLIC_HEADERS
-	ft2build.h
+	${FREETYPE_SOURCE_DIR}/include/ft2build.h
 )
 SET(FREETYPE_PRIVATE_HEADERS
-	${CMAKE_CURRENT_SOURCE_DIR}/include/config/ftconfig.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/config/ftheader.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/config/ftmodule.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/config/ftoption.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/config/ftstdlib.h
+	${FREETYPE_SOURCE_DIR}/include/config/ftconfig.h
+	${FREETYPE_SOURCE_DIR}/include/config/ftheader.h
+	${FREETYPE_SOURCE_DIR}/include/config/ftmodule.h
+	${FREETYPE_SOURCE_DIR}/include/config/ftoption.h
+	${FREETYPE_SOURCE_DIR}/include/config/ftstdlib.h
 )
 
 SET(FREETYPE_SRCS
 	${CMAKE_CURRENT_BINARY_DIR}/ftdebug.c
-	src/autofit/autofit.c
-	src/bdf/bdf.c
-	src/cff/cff.c
-	src/base/ftbase.c
-	src/base/ftbitmap.c
-	src/cache/ftcache.c
-	src/base/ftfstype.c
-	src/base/ftgasp.c
-	src/base/ftglyph.c
-	src/gzip/ftgzip.c
-	src/base/ftinit.c
-	src/lzw/ftlzw.c
-	src/base/ftstroke.c
-	src/base/ftsystem.c
-	src/smooth/smooth.c
-	src/base/ftbbox.c
-	src/base/ftmm.c
-	src/base/ftpfr.c
-	src/base/ftsynth.c
-	src/base/fttype1.c
-	src/base/ftwinfnt.c
-	src/base/ftxf86.c
-	src/base/ftlcdfil.c
-	src/base/ftgxval.c
-	src/base/ftotval.c
-	src/base/ftpatent.c
-	src/pcf/pcf.c
-	src/pfr/pfr.c
-	src/psaux/psaux.c
-	src/pshinter/pshinter.c
-	src/psnames/psmodule.c
-	src/raster/raster.c
-	src/sfnt/sfnt.c
-	src/truetype/truetype.c
-	src/type1/type1.c
-	src/cid/type1cid.c
-	src/type42/type42.c
-	src/winfonts/winfnt.c
+	
+	${FREETYPE_SOURCE_DIR}/src/autofit/autofit.c
+	${FREETYPE_SOURCE_DIR}/src/bdf/bdf.c
+	${FREETYPE_SOURCE_DIR}/src/cff/cff.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftbase.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftbitmap.c
+	${FREETYPE_SOURCE_DIR}/src/cache/ftcache.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftfstype.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftgasp.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftglyph.c
+	${FREETYPE_SOURCE_DIR}/src/gzip/ftgzip.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftinit.c
+	${FREETYPE_SOURCE_DIR}/src/lzw/ftlzw.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftstroke.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftsystem.c
+	${FREETYPE_SOURCE_DIR}/src/smooth/smooth.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftbbox.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftmm.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftpfr.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftsynth.c
+	${FREETYPE_SOURCE_DIR}/src/base/fttype1.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftwinfnt.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftxf86.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftgxval.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftotval.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftpatent.c
+	${FREETYPE_SOURCE_DIR}/src/pcf/pcf.c
+	${FREETYPE_SOURCE_DIR}/src/pfr/pfr.c
+	${FREETYPE_SOURCE_DIR}/src/psaux/psaux.c
+	${FREETYPE_SOURCE_DIR}/src/pshinter/pshinter.c
+	${FREETYPE_SOURCE_DIR}/src/psnames/psmodule.c
+	${FREETYPE_SOURCE_DIR}/src/raster/raster.c
+	${FREETYPE_SOURCE_DIR}/src/sfnt/sfnt.c
+	${FREETYPE_SOURCE_DIR}/src/truetype/truetype.c
+	${FREETYPE_SOURCE_DIR}/src/type1/type1.c
+	${FREETYPE_SOURCE_DIR}/src/cid/type1cid.c
+	${FREETYPE_SOURCE_DIR}/src/type42/type42.c
+	${FREETYPE_SOURCE_DIR}/src/winfonts/winfnt.c
 )
 
 # Add all freetype include files
 FILE(GLOB FREETYPE_INCLUDE 
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+	"${FREETYPE_SOURCE_DIR}/include/*.h"
 )
 
 FILE(GLOB FREETYPE_INCLUDE_CONFIG 
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/config/*.h"
+	"${FREETYPE_SOURCE_DIR}/include/config/*.h"
 )
 
 FILE(GLOB FREETYPE_INCLUDE_INTERNAL 
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/internal/*.h"
+	"${FREETYPE_SOURCE_DIR}/include/internal/*.h"
 )
 
 FILE(GLOB FREETYPE_INCLUDE_INTERNAL_SERVICES 
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/internal/services*.h"
+	"${FREETYPE_SOURCE_DIR}/include/internal/services*.h"
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES(${FREETYPE_SOURCE_DIR} ${FREETYPE_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR})
 
 
 
 IF(MSVC)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4 /Za /wd\"4001\"")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4 /Za /wd4001 /wd4244 /wd4701")
 	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /GF /Gy /Ob1 /MP")
 	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
 
@@ -101,7 +102,7 @@ IF(MSVC)
 	SET(CMAKE_DEBUG_POSTFIX "d")
 ENDIF(MSVC)
 
-ADD_LIBRARY(${TARGET_LIB} STATIC ${FREETYPE_SRCS} ${FREETYPE_PRIVATE_HEADERS} ${CMAKE_CURRENT_SOURCE_DIR}/include/${FREETYPE_PUBLIC_HEADERS})
+ADD_LIBRARY(${TARGET_LIB} STATIC ${FREETYPE_SRCS} ${FREETYPE_PRIVATE_HEADERS} ${FREETYPE_PUBLIC_HEADERS})
 
 
 # Runtime equals DLL-files
@@ -114,7 +115,7 @@ IF(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
 		ARCHIVE DESTINATION ${ARCHIVE_OUTPUT_PATH})
 ENDIF()
 IF(NOT SKIP_INSTALL_HEADERS AND NOT SKIP_INSTALL_ALL )
-	INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/${FREETYPE_PUBLIC_HEADERS} DESTINATION ${INCLUDE_OUTPUT_PATH})
+	INSTALL(FILES ${FREETYPE_PUBLIC_HEADERS} DESTINATION ${INCLUDE_OUTPUT_PATH})
 	INSTALL(FILES ${FREETYPE_INCLUDE} DESTINATION ${INCLUDE_OUTPUT_PATH}/freetype)
 	INSTALL(FILES ${FREETYPE_INCLUDE_CONFIG} DESTINATION ${INCLUDE_OUTPUT_PATH}/freetype/config)
 	INSTALL(FILES ${FREETYPE_INCLUDE_INTERNAL} DESTINATION ${INCLUDE_OUTPUT_PATH}/freetype/internal)

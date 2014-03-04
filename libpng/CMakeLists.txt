@@ -9,12 +9,6 @@ project(libpng C)
 
 SET(TARGET_LIB libpng)
 
-SET(PNGLIB_MAJOR 1)
-SET(PNGLIB_MINOR 6)
-SET(PNGLIB_RELEASE 9)
-SET(PNGLIB_NAME libpng${PNGLIB_MAJOR}${PNGLIB_MINOR})
-SET(PNGLIB_VERSION ${PNGLIB_MAJOR}.${PNGLIB_MINOR}.${PNGLIB_RELEASE})
-
 IF(NOT WIN32)
 	find_library(M_LIBRARY
 		NAMES m
@@ -31,7 +25,6 @@ ENDIF()
 
 
 # SET LIBNAME
-#SET(PNG_LIB_NAME png${PNGLIB_MAJOR}${PNGLIB_MINOR})
 SET(PNG_LIB_NAME png)
 
 # to distinguish between debug and release lib
@@ -41,39 +34,39 @@ SET(CMAKE_DEBUG_POSTFIX "d")
 # TODO: fix this by building with awk; without this no cmake build can be
 # configured directly (to do so indirectly use your local awk to build a
 # pnglibconf.h in the build directory.)
-CONFIGURE_FILE(scripts/pnglibconf.h.prebuilt pnglibconf.h @ONLY)
+CONFIGURE_FILE(${LIBPNG_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt pnglibconf.h @ONLY)
 
 # OUR SOURCES
 SET(libpng_public_hdrs
-	png.h
-	pngconf.h
+	${LIBPNG_SOURCE_DIR}/png.h
+	${LIBPNG_SOURCE_DIR}/pngconf.h
 	${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h
 )
 SET(libpng_sources
-	pngdebug.h
-	pnginfo.h
-	pngpriv.h
-	pngstruct.h
-	png.c
-	pngerror.c
-	pngget.c
-	pngmem.c
-	pngpread.c
-	pngread.c
-	pngrio.c
-	pngrtran.c
-	pngrutil.c
-	pngset.c
-	pngtrans.c
-	pngwio.c
-	pngwrite.c
-	pngwtran.c
-	pngwutil.c
+	${LIBPNG_SOURCE_DIR}/pngdebug.h
+	${LIBPNG_SOURCE_DIR}/pnginfo.h
+	${LIBPNG_SOURCE_DIR}/pngpriv.h
+	${LIBPNG_SOURCE_DIR}/pngstruct.h
+	${LIBPNG_SOURCE_DIR}/png.c
+	${LIBPNG_SOURCE_DIR}/pngerror.c
+	${LIBPNG_SOURCE_DIR}/pngget.c
+	${LIBPNG_SOURCE_DIR}/pngmem.c
+	${LIBPNG_SOURCE_DIR}/pngpread.c
+	${LIBPNG_SOURCE_DIR}/pngread.c
+	${LIBPNG_SOURCE_DIR}/pngrio.c
+	${LIBPNG_SOURCE_DIR}/pngrtran.c
+	${LIBPNG_SOURCE_DIR}/pngrutil.c
+	${LIBPNG_SOURCE_DIR}/pngset.c
+	${LIBPNG_SOURCE_DIR}/pngtrans.c
+	${LIBPNG_SOURCE_DIR}/pngwio.c
+	${LIBPNG_SOURCE_DIR}/pngwrite.c
+	${LIBPNG_SOURCE_DIR}/pngwtran.c
+	${LIBPNG_SOURCE_DIR}/pngwutil.c
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/zlib" "${CMAKE_BINARY_DIR}/zlib")
+INCLUDE_DIRECTORIES(${LIBPNG_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES("${ZLIB_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/zlib")
 
 SET(ZLIB_LIBRARY "${LIBRARY_OUTPUT_PATH}/zlib")
 SET(ZLIB_DEBUG_LIBRARY "${LIBRARY_OUTPUT_PATH}/zlibd")

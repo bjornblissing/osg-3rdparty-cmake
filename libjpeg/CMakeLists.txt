@@ -5,74 +5,74 @@ SET(TARGET_LIB jpeg)
 SET(LIBJPEG_VERSION "9A")
 
 IF(MSVC)
-	SET(jconfig "jconfig.vc")
+	SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
 ENDIF()
 
 CONFIGURE_FILE(${jconfig} jconfig.h @ONLY)
 
 SET(LIBJPEG_PUBLIC_HEADERS
 	${CMAKE_CURRENT_BINARY_DIR}/jconfig.h
-	jerror.h
-	jmorecfg.h
-	jpeglib.h
+	${LIBJPEG_SOURCE_DIR}/jerror.h
+	${LIBJPEG_SOURCE_DIR}/jmorecfg.h
+	${LIBJPEG_SOURCE_DIR}/jpeglib.h
 )
 SET(LIBJPEG_PRIVATE_HEADERS
-	jdct.h
-	jinclude.h
-	jmemsys.h
-	jpegint.h
-	jversion.h
+	${LIBJPEG_SOURCE_DIR}/jdct.h
+	${LIBJPEG_SOURCE_DIR}/jinclude.h
+	${LIBJPEG_SOURCE_DIR}/jmemsys.h
+	${LIBJPEG_SOURCE_DIR}/jpegint.h
+	${LIBJPEG_SOURCE_DIR}/jversion.h
 )
 SET(LIBJPEG_SRCS
-	jaricom.c 
-	jcapimin.c 
-	jcapistd.c 
-	jcarith.c 
-	jccoefct.c 
-	jccolor.c 
-	jcdctmgr.c 
-	jchuff.c 
-	jcinit.c 
-	jcmainct.c 
-	jcmarker.c 
-	jcmaster.c 
-	jcomapi.c 
-	jcparam.c 
-	jcprepct.c 
-	jcsample.c 
-	jctrans.c 
-	jdapimin.c 
-	jdapistd.c 
-	jdarith.c 
-	jdatadst.c 
-	jdatasrc.c 
-	jdcoefct.c 
-	jdcolor.c 
-	jddctmgr.c 
-	jdhuff.c 
-	jdinput.c 
-	jdmainct.c 
-	jdmarker.c 
-	jdmaster.c 
-	jdmerge.c 
-	jdpostct.c 
-	jdsample.c 
-	jdtrans.c 
-	jerror.c 
-	jfdctflt.c 
-	jfdctfst.c 
-	jfdctint.c 
-	jidctflt.c 
-	jidctfst.c 
-	jidctint.c 
-	jmemmgr.c 
-	jmemnobs.c 
-	jquant1.c 
-	jquant2.c 
+	${LIBJPEG_SOURCE_DIR}/jaricom.c
+	${LIBJPEG_SOURCE_DIR}/jcapimin.c
+	${LIBJPEG_SOURCE_DIR}/jcapistd.c
+	${LIBJPEG_SOURCE_DIR}/jcarith.c
+	${LIBJPEG_SOURCE_DIR}/jccoefct.c
+	${LIBJPEG_SOURCE_DIR}/jccolor.c
+	${LIBJPEG_SOURCE_DIR}/jcdctmgr.c
+	${LIBJPEG_SOURCE_DIR}/jchuff.c
+	${LIBJPEG_SOURCE_DIR}/jcinit.c
+	${LIBJPEG_SOURCE_DIR}/jcmainct.c
+	${LIBJPEG_SOURCE_DIR}/jcmarker.c
+	${LIBJPEG_SOURCE_DIR}/jcmaster.c
+	${LIBJPEG_SOURCE_DIR}/jcomapi.c
+	${LIBJPEG_SOURCE_DIR}/jcparam.c
+	${LIBJPEG_SOURCE_DIR}/jcprepct.c
+	${LIBJPEG_SOURCE_DIR}/jcsample.c
+	${LIBJPEG_SOURCE_DIR}/jctrans.c
+	${LIBJPEG_SOURCE_DIR}/jdapimin.c
+	${LIBJPEG_SOURCE_DIR}/jdapistd.c
+	${LIBJPEG_SOURCE_DIR}/jdarith.c
+	${LIBJPEG_SOURCE_DIR}/jdatadst.c
+	${LIBJPEG_SOURCE_DIR}/jdatasrc.c
+	${LIBJPEG_SOURCE_DIR}/jdcoefct.c
+	${LIBJPEG_SOURCE_DIR}/jdcolor.c
+	${LIBJPEG_SOURCE_DIR}/jddctmgr.c
+	${LIBJPEG_SOURCE_DIR}/jdhuff.c
+	${LIBJPEG_SOURCE_DIR}/jdinput.c
+	${LIBJPEG_SOURCE_DIR}/jdmainct.c
+	${LIBJPEG_SOURCE_DIR}/jdmarker.c
+	${LIBJPEG_SOURCE_DIR}/jdmaster.c
+	${LIBJPEG_SOURCE_DIR}/jdmerge.c
+	${LIBJPEG_SOURCE_DIR}/jdpostct.c
+	${LIBJPEG_SOURCE_DIR}/jdsample.c
+	${LIBJPEG_SOURCE_DIR}/jdtrans.c
+	${LIBJPEG_SOURCE_DIR}/jerror.c
+	${LIBJPEG_SOURCE_DIR}/jfdctflt.c
+	${LIBJPEG_SOURCE_DIR}/jfdctfst.c
+	${LIBJPEG_SOURCE_DIR}/jfdctint.c
+	${LIBJPEG_SOURCE_DIR}/jidctflt.c
+	${LIBJPEG_SOURCE_DIR}/jidctfst.c
+	${LIBJPEG_SOURCE_DIR}/jidctint.c
+	${LIBJPEG_SOURCE_DIR}/jmemmgr.c
+	${LIBJPEG_SOURCE_DIR}/jmemnobs.c
+	${LIBJPEG_SOURCE_DIR}/jquant1.c
+	${LIBJPEG_SOURCE_DIR}/jquant2.c
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES(${LIBJPEG_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 IF(MSVC)
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Gy")

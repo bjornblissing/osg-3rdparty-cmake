@@ -44,51 +44,51 @@ CONFIGURE_FILE(zconf.h.cmakein zconf.h @ONLY)
 
 SET(ZLIB_PUBLIC_HDRS
 	${CMAKE_CURRENT_BINARY_DIR}/zconf.h
-	zlib.h
+	${ZLIB_SOURCE_DIR}/zlib.h
 )
 SET(ZLIB_PRIVATE_HDRS
-	crc32.h
-	deflate.h
-	gzguts.h
-	inffast.h
-	inffixed.h
-	inflate.h
-	inftrees.h
-	trees.h
-	zutil.h
+	${ZLIB_SOURCE_DIR}/crc32.h
+	${ZLIB_SOURCE_DIR}/deflate.h
+	${ZLIB_SOURCE_DIR}/gzguts.h
+	${ZLIB_SOURCE_DIR}/inffast.h
+	${ZLIB_SOURCE_DIR}/inffixed.h
+	${ZLIB_SOURCE_DIR}/inflate.h
+	${ZLIB_SOURCE_DIR}/inftrees.h
+	${ZLIB_SOURCE_DIR}/trees.h
+	${ZLIB_SOURCE_DIR}/zutil.h
 )
 SET(ZLIB_SRCS
-	adler32.c
-	compress.c
-	crc32.c
-	deflate.c
-	gzclose.c
-	gzlib.c
-	gzread.c
-	gzwrite.c
-	inflate.c
-	infback.c
-	inftrees.c
-	inffast.c
-	trees.c
-	uncompr.c
-	zutil.c
+	${ZLIB_SOURCE_DIR}/adler32.c
+	${ZLIB_SOURCE_DIR}/compress.c
+	${ZLIB_SOURCE_DIR}/crc32.c
+	${ZLIB_SOURCE_DIR}/deflate.c
+	${ZLIB_SOURCE_DIR}/gzclose.c
+	${ZLIB_SOURCE_DIR}/gzlib.c
+	${ZLIB_SOURCE_DIR}/gzread.c
+	${ZLIB_SOURCE_DIR}/gzwrite.c
+	${ZLIB_SOURCE_DIR}/inflate.c
+	${ZLIB_SOURCE_DIR}/infback.c
+	${ZLIB_SOURCE_DIR}/inftrees.c
+	${ZLIB_SOURCE_DIR}/inffast.c
+	${ZLIB_SOURCE_DIR}/trees.c
+	${ZLIB_SOURCE_DIR}/uncompr.c
+	${ZLIB_SOURCE_DIR}/zutil.c
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES(${ZLIB_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 IF(NOT MINGW)
 	SET(ZLIB_DLL_SRCS
-		win32/zlib1.rc # If present will override custom build rule below.
+		${ZLIB_SOURCE_DIR}/win32/zlib1.rc # If present will override custom build rule below.
 	)
 ENDIF()
 
 IF(CMAKE_COMPILER_IS_GNUCC)
 	IF(ZLIB_USE_ASM686)
-		SET(ZLIB_ASMS contrib/asm686/match.S)
+		SET(ZLIB_ASMS ${ZLIB_SOURCE_DIR}/contrib/asm686/match.S)
 	ELSEIF (ZLIB_USE_AMD64)
-		SET(ZLIB_ASMS contrib/amd64/amd64-match.S)
+		SET(ZLIB_ASMS ${ZLIB_SOURCE_DIR}/contrib/amd64/amd64-match.S)
 	ENDIF ()
 
 	IF(ZLIB_ASMS)
@@ -101,14 +101,14 @@ IF(MSVC)
 	IF(ZLIB_USE_ASM686)
 		ENABLE_LANGUAGE(ASM_MASM)
 		SET(ZLIB_ASMS
-			contrib/masmx86/inffas32.asm
-			contrib/masmx86/match686.asm
+			${ZLIB_SOURCE_DIR}/contrib/masmx86/inffas32.asm
+			${ZLIB_SOURCE_DIR}/contrib/masmx86/match686.asm
 		)
 	ELSEIF (ZLIB_USE_AMD64)
 		ENABLE_LANGUAGE(ASM_MASM)
 		SET(ZLIB_ASMS
-			contrib/masmx64/gvmat64.asm
-			contrib/masmx64/inffasx64.asm
+			${ZLIB_SOURCE_DIR}/contrib/masmx64/gvmat64.asm
+			${ZLIB_SOURCE_DIR}/contrib/masmx64/inffasx64.asm
 		)
 	ENDIF()
 
@@ -118,7 +118,7 @@ IF(MSVC)
 ENDIF()
 
 # parse the full version number from zlib.h and include in ZLIB_FULL_VERSION
-FILE(READ ${CMAKE_CURRENT_SOURCE_DIR}/zlib.h _zlib_h_contents)
+FILE(READ ${ZLIB_SOURCE_DIR}/zlib.h _zlib_h_contents)
 STRING(REGEX REPLACE ".*#define[ \t]+ZLIB_VERSION[ \t]+\"([-0-9A-Za-z.]+)\".*"
 	"\\1" ZLIB_FULL_VERSION ${_zlib_h_contents})
 
@@ -131,10 +131,10 @@ IF(MINGW)
 	ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
 					   COMMAND ${CMAKE_RC_COMPILER}
 							-D GCC_WINDRES
-							-I ${CMAKE_CURRENT_SOURCE_DIR}
+							-I ${ZLIB_SOURCE_DIR}
 							-I ${CMAKE_CURRENT_BINARY_DIR}
 							-o ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj
-							-i ${CMAKE_CURRENT_SOURCE_DIR}/win32/zlib1.rc)
+							-i ${ZLIB_SOURCE_DIR}/win32/zlib1.rc)
 	SET(ZLIB_DLL_SRCS ${CMAKE_CURRENT_BINARY_DIR}/zlib1rc.obj)
 ENDIF(MINGW)
 

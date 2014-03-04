@@ -4,8 +4,8 @@ SET(TARGET_LIB libtiff)
 
 
 IF(MSVC)
-	SET(tif_config "tif_config.vc.h")
-	SET(tiffconf "tiffconf.vc.h")
+	SET(tif_config "${LIFTIFF_SOURCE_DIR}/libtiff/tif_config.vc.h")
+	SET(tiffconf "${LIFTIFF_SOURCE_DIR}/libtiff/tiffconf.vc.h")
 ENDIF()
 
 CONFIGURE_FILE(${tif_config} tif_config.h @ONLY)
@@ -15,65 +15,67 @@ CONFIGURE_FILE(${tiffconf} tiffconf.h @ONLY)
 SET(LIBTIFF_VERSION "4.0.3")
 
 SET(LIBTIFF_PUBLIC_HEADERS
-	tiff.h
 	${CMAKE_CURRENT_BINARY_DIR}/tiffconf.h
-	tiffio.h
-	tiffvers.h
+
+	${LIFTIFF_SOURCE_DIR}/libtiff/tiff.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/tiffio.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/tiffvers.h
 )
 SET(LIBTIFF_PRIVATE_HEADERS
-	tif_dir.h
-	tif_fax3.h
-	tif_predict.h
 	${CMAKE_CURRENT_BINARY_DIR}/tif_config.h
-	tiffiop.h
-	t4.h
-	uvcode.h
+
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dir.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_predict.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/tiffiop.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/t4.h
+	${LIFTIFF_SOURCE_DIR}/libtiff/uvcode.h
 )
 SET(LIBTIFF_SRCS
-	tif_aux.c
-	tif_close.c
-	tif_codec.c
-	tif_color.c
-	tif_compress.c
-	tif_dir.c
-	tif_dirinfo.c
-	tif_dirread.c
-	tif_dirwrite.c
-	tif_dumpmode.c
-	tif_error.c
-	tif_extension.c
-	tif_fax3.c
-	tif_fax3sm.c
-	tif_flush.c
-	tif_getimage.c
-	tif_jbig.c
-	tif_jpeg.c
-	tif_luv.c
-	tif_lzw.c
-	tif_next.c
-	tif_ojpeg.c
-	tif_open.c
-	tif_packbits.c
-	tif_pixarlog.c
-	tif_predict.c
-	tif_print.c
-	tif_read.c
-	tif_strip.c
-	tif_swab.c
-	tif_thunder.c
-	tif_tile.c
-	tif_version.c
-	tif_warning.c
-	tif_win32.c
-	tif_write.c
-	tif_zip.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_aux.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_close.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_codec.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_color.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_compress.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dir.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirinfo.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirread.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirwrite.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dumpmode.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_error.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_extension.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3sm.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_flush.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_getimage.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_jbig.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_jpeg.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_luv.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_lzw.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_next.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_ojpeg.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_open.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_packbits.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_pixarlog.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_predict.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_print.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_read.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_strip.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_swab.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_thunder.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_tile.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_version.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_warning.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_win32.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_write.c
+	${LIFTIFF_SOURCE_DIR}/libtiff/tif_zip.c
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES("${LIFTIFF_SOURCE_DIR}/libtiff" ${CMAKE_CURRENT_BINARY_DIR})
 
 # Include ZLIB
-INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/zlib" "${CMAKE_BINARY_DIR}/zlib")
+INCLUDE_DIRECTORIES("${ZLIB_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/zlib")
 
 SET(ZLIB_LIBRARY "${LIBRARY_OUTPUT_PATH}/zlib")
 SET(ZLIB_DEBUG_LIBRARY "${LIBRARY_OUTPUT_PATH}/zlibd")
@@ -82,10 +84,8 @@ MARK_AS_ADVANCED(ZLIB_LIBRARY ZLIB_DEBUG_LIBRARY)
 
 SET(ZLIB_LIBRARIES optimized ${ZLIB_LIBRARY} debug ${ZLIB_DEBUG_LIBRARY})
 
-
-
 # Include LIBJPEG
-INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/libjpeg" "${CMAKE_BINARY_DIR}/libjpeg")
+INCLUDE_DIRECTORIES("${LIBJPEG_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/libjpeg")
 
 SET(JPEG_LIBRARY "${LIBRARY_OUTPUT_PATH}/jpeg")
 SET(JPEG_DEBUG_LIBRARY "${LIBRARY_OUTPUT_PATH}/jpegd")
@@ -96,7 +96,8 @@ SET(JPEG_LIBRARIES optimized ${JPEG_LIBRARY} debug ${JPEG_DEBUG_LIBRARY})
 
 IF(MSVC)
 	SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /Gy /Oi")
-	ADD_DEFINITIONS(-D_LIB)
+	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd4244")
+	ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_LIB)
 	SET(CMAKE_DEBUG_POSTFIX "d")
 ENDIF(MSVC)
 
