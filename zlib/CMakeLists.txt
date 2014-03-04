@@ -34,8 +34,8 @@ IF(MSVC)
 ENDIF()
 
 SET(ZLIB_PC zlib.pc)
-CONFIGURE_FILE(zlib.pc.cmakein ${ZLIB_PC} @ONLY)
-CONFIGURE_FILE(zconf.h.cmakein zconf.h @ONLY)
+CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zlib.pc.cmakein ${ZLIB_PC} @ONLY)
+CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zconf.h.cmakein zconf.h @ONLY)
 
 
 #============================================================================
