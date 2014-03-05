@@ -46,3 +46,10 @@ FreeType
 Sources for FreeType can be downloaded from:
 
 http://www.freetype.org/
+
+GLUT
+----
+Sources for GLUT can be downloaded from:
+
+http://www.opengl.org/resources/libraries/glut/
+
