@@ -47,9 +47,16 @@ Sources for FreeType can be downloaded from:
 
 http://www.freetype.org/
 
+
 GLUT
 ----
 Sources for GLUT can be downloaded from:
 
 http://www.opengl.org/resources/libraries/glut/
 
+
+GIFLIB
+------
+Sources for GIFLIB can be downloaded from:
+
+http://sourceforge.net/projects/giflib/

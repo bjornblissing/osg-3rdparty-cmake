@@ -42,6 +42,7 @@ SET(LIBJPEG_SOURCE_DIR CACHE PATH "Path where to find LIBJPEG source")
 SET(LIFTIFF_SOURCE_DIR CACHE PATH "Path where to find LIFTIFF source")
 SET(FREETYPE_SOURCE_DIR CACHE PATH "Path where to find FREETYPE source")
 SET(GLUT_SOURCE_DIR CACHE PATH "Path where to find GLUT source")
+SET(GIFLIB_SOURCE_DIR CACHE PATH "Path where to find GIFLIB source")
 
 # Check dependencies for LIBPNG
 IF (LIBPNG_SOURCE_DIR)
@@ -86,4 +87,7 @@ IF (GLUT_SOURCE_DIR)
 	ADD_SUBDIRECTORY(glut)
 ENDIF()
 
+IF (GIFLIB_SOURCE_DIR)
+	ADD_SUBDIRECTORY(giflib)
+ENDIF()
 
