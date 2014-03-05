@@ -12,14 +12,14 @@ CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
 # Create new version of ft2build.h to use in include dir
 SET(PUBLIC_FT2BUILD_H "${CMAKE_CURRENT_BINARY_DIR}/ft2build.h")
 FILE(READ ${FREETYPE_SOURCE_DIR}/include/ft2build.h FT2BUILD_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#include([ ]+)<" "#include\1<freetype/" 
+	STRING(REGEX REPLACE "#include([ ]+)<" "#include\\1<freetype/" 
 		NEW_FT2BUILD_H_FILE_CONTENT "${FT2BUILD_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
 
 # Create new version of ftheader.h to use in include dir
 SET(PUBLIC_FTCONFIG_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
 FILE(READ ${FREETYPE_SOURCE_DIR}/include/config/ftheader.h FTHEADER_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \1 <freetype/" 
+	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/" 
 		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
 
