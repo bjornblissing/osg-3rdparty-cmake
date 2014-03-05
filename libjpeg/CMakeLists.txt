@@ -2,8 +2,6 @@ PROJECT(jpeg C)
 
 SET(TARGET_LIB jpeg)
 
-SET(LIBJPEG_VERSION "9A")
-
 IF(MSVC)
 	SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
 ENDIF()
@@ -69,6 +67,7 @@ SET(LIBJPEG_SRCS
 	${LIBJPEG_SOURCE_DIR}/jmemnobs.c
 	${LIBJPEG_SOURCE_DIR}/jquant1.c
 	${LIBJPEG_SOURCE_DIR}/jquant2.c
+	${LIBJPEG_SOURCE_DIR}/jutils.c
 )
 
 # Dependent include files
