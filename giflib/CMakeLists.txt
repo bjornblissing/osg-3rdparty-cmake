@@ -1,6 +1,6 @@
 PROJECT(giflib C)
 
-SET(TARGET_LIB giflib)
+SET(TARGET_LIB libgif)
 
 SET(GIFLIB_PUBLIC_HEADERS
 	${GIFLIB_SOURCE_DIR}/lib/gif_lib.h
