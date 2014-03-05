@@ -79,3 +79,11 @@ Latest version tested: 5.0.5
 Sources for GIFLIB can be downloaded from:
 
 http://sourceforge.net/projects/giflib/
+
+
+MINIZIP
+-------
+
+Sources for MINIZIP can be downloaded from:
+
+http://github.com/nmoinvaz/minizip

@@ -43,6 +43,7 @@ SET(LIFTIFF_SOURCE_DIR CACHE PATH "Path where to find LIFTIFF source")
 SET(FREETYPE_SOURCE_DIR CACHE PATH "Path where to find FREETYPE source")
 SET(GLUT_SOURCE_DIR CACHE PATH "Path where to find GLUT source")
 SET(GIFLIB_SOURCE_DIR CACHE PATH "Path where to find GIFLIB source")
+SET(MINIZIP_SOURCE_DIR CACHE PATH "Path where to find MINIZIP source")
 
 # Check dependencies for LIBPNG
 IF (LIBPNG_SOURCE_DIR)
@@ -61,6 +62,13 @@ IF(LIFTIFF_SOURCE_DIR)
 		MESSAGE(FATAL_ERROR "Error: LIBTIFF depends on LIBJPEG and no LIBJPEG path has been set")
 	ENDIF()
 ENDIF()
+
+# Check dependencies for MINIZIP
+IF (MINIZIP_SOURCE_DIR)
+	IF(NOT ZLIB_SOURCE_DIR)
+		MESSAGE(FATAL_ERROR "Error: MINIZIP depends on ZLIB and no ZLIB path has been set")
+	ENDIF()
+ENDIF ()
 
 # Add libraries
 IF (ZLIB_SOURCE_DIR)
@@ -89,5 +97,9 @@ ENDIF()
 
 IF (GIFLIB_SOURCE_DIR)
 	ADD_SUBDIRECTORY(giflib)
+ENDIF()
+
+IF (MINIZIP_SOURCE_DIR)
+	ADD_SUBDIRECTORY(minizip)
 ENDIF()
 
