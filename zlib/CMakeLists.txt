@@ -159,7 +159,7 @@ IF(UNIX)
    IF(NOT APPLE)
 	 SET_TARGET_PROPERTIES(zlib PROPERTIES LINK_FLAGS "-Wl,--version-script,\"${CMAKE_CURRENT_SOURCE_DIR}/zlib.map\"")
    ENDIF()
-elseIF(BUILD_SHARED_LIBS AND WIN32)
+ELSEIF(BUILD_SHARED_LIBS AND WIN32)
 	# Creates zlib1.dll when building shared library version
 	SET_TARGET_PROPERTIES(zlib PROPERTIES SUFFIX "1.dll")
 ENDIF()
