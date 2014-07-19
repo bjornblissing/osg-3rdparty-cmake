@@ -7,6 +7,11 @@ IF(MSVC)
 	SET(ftdebug "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c")
 ENDIF()
 
+IF(MINGW)
+	SET(ftdebug "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c")
+ENDIF()
+
+
 CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
 
 # Create new version of ft2build.h to use in include dir
@@ -113,6 +118,10 @@ IF(MSVC)
 	ENDIF()
 	SET(CMAKE_DEBUG_POSTFIX "d")
 ENDIF(MSVC)
+
+IF (MINGW)
+	ADD_DEFINITIONS(-DFT2_BUILD_LIBRARY)
+ENDIF(MINGW)
 
 ADD_LIBRARY(${TARGET_LIB} STATIC ${FREETYPE_SRCS} ${FREETYPE_PRIVATE_HEADERS})
 
