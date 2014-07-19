@@ -6,6 +6,10 @@ IF(MSVC)
 	SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
 ENDIF()
 
+IF (MINGW)
+	SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
+ENDIF()
+
 CONFIGURE_FILE(${jconfig} jconfig.h @ONLY)
 
 SET(LIBJPEG_PUBLIC_HEADERS
