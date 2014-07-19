@@ -8,6 +8,11 @@ IF(MSVC)
 	SET(tiffconf "${LIFTIFF_SOURCE_DIR}/libtiff/tiffconf.vc.h")
 ENDIF()
 
+IF(MINGW)
+	SET(tif_config "${CMAKE_CURRENT_SOURCE_DIR}/tif_config.mingw.h")
+	SET(tiffconf "${CMAKE_CURRENT_SOURCE_DIR}/tiffconf.mingw.h")
+ENDIF()
+
 CONFIGURE_FILE(${tif_config} tif_config.h @ONLY)
 CONFIGURE_FILE(${tiffconf} tiffconf.h @ONLY)
 
