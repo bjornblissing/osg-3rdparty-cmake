@@ -164,6 +164,15 @@ ELSEIF(BUILD_SHARED_LIBS AND WIN32)
 	SET_TARGET_PROPERTIES(zlib PROPERTIES SUFFIX "1.dll")
 ENDIF()
 
+IF(MINGW)
+	# Static library name
+	SET_TARGET_PROPERTIES(zlib PROPERTIES IMPORT_PREFIX "")
+	SET_TARGET_PROPERTIES(zlib PROPERTIES IMPORT_SUFFIX "1.a")
+	# Shared library name
+	SET_TARGET_PROPERTIES(zlib PROPERTIES PREFIX "")
+	SET_TARGET_PROPERTIES(zlib PROPERTIES SUFFIX "1.dll")
+ENDIF()
+
 # Runtime equals DLL-files
 # Archive equals static libraries
 # Library equals module libraries
