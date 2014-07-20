@@ -17,6 +17,8 @@ So far these scripts has been tested with successfully with the following toolse
 
 * Visual Studio 2013 - 32 bit build
 
+* MinGW + GCC 4.8.2
+
 
 zlib
 ----
@@ -29,7 +31,7 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.9
+Latest version tested: 1.6.12
 
 Sources for libpng can be downloaded from:
 
@@ -56,7 +58,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.5.2
+Latest version tested: 2.5.3
 
 Sources for FreeType can be downloaded from:
 
@@ -74,7 +76,7 @@ http://www.opengl.org/resources/libraries/glut/
 
 GIFLIB
 ------
-Latest version tested: 5.0.5
+Latest version tested: 5.0.6
 
 Sources for GIFLIB can be downloaded from:
 
