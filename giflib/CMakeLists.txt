@@ -20,7 +20,11 @@ SET(GIFLIB_SRCS
 	${GIFLIB_SOURCE_DIR}/lib/quantize.c
 )
 
+
 IF(MSVC)
+	# Create file to avoid include file name collision on other platforms
+	CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/unistd.h.in unistd.h @ONLY)	
+
 	# Add unistd.h, getopt.h, getopt.c and stdbool.h for windows build
 	# getopt from: http://gist.github.com/ashelly/7776712
 	# unistd.h from: http://stackoverflow.com/questions/341817/is-there-a-replacement-for-unistd-h-for-windows-visual-c
@@ -52,7 +56,15 @@ IF(MSVC)
 	SET(CMAKE_DEBUG_POSTFIX "d")
 ENDIF(MSVC)
 
+IF(MINGW)
+	ADD_DEFINITIONS(-D_CRT_SECURE_NO_WARNINGS -D_LIB)
+ENDIF(MINGW)
+
 ADD_LIBRARY(${TARGET_LIB} STATIC ${GIFLIB_SRCS} ${GIFLIB_PRIVATE_HEADERS} ${GIFLIB_PUBLIC_HEADERS})
+
+IF(MINGW)
+	SET_TARGET_PROPERTIES(${TARGET_LIB} PROPERTIES OUTPUT_NAME gif)
+ENDIF()
 
 # Runtime equals DLL-files
 # Archive equals static libraries
