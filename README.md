@@ -17,6 +17,9 @@ So far these scripts has been tested with successfully with the following toolse
 
 * Visual Studio 2013 - 32 bit build
 
+* Visual Studio 2015 - 32 bit build
+* Visual Studio 2015 - 64 bit build
+
 * MinGW + GCC 4.8.2
 
 
@@ -31,7 +34,7 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.16
+Latest version tested: 1.6.18
 
 Sources for libpng can be downloaded from:
 
@@ -49,7 +52,7 @@ http://www.ijg.org/
 
 libtiff
 -------
-Latest version tested: 4.0.3
+Latest version tested: 4.0.4
 
 Sources for libtiff can be downloaded from:
 
@@ -58,7 +61,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.5.5
+Latest version tested: 2.6
 
 Sources for FreeType can be downloaded from:
 

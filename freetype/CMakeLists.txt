@@ -62,7 +62,7 @@ SET(FREETYPE_SRCS
 	${FREETYPE_SOURCE_DIR}/src/base/ftsynth.c
 	${FREETYPE_SOURCE_DIR}/src/base/fttype1.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftwinfnt.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftxf86.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftfntfmt.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftgxval.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftotval.c
