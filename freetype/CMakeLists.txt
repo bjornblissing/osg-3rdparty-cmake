@@ -23,7 +23,7 @@ FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
 
 # Create new version of ftheader.h to use in include dir
 SET(PUBLIC_FTCONFIG_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
-FILE(READ ${FREETYPE_SOURCE_DIR}/include/config/ftheader.h FTHEADER_H_FILE_CONTENT)
+FILE(READ ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h FTHEADER_H_FILE_CONTENT)
 	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/" 
 		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
@@ -31,11 +31,11 @@ FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
 
 SET(FREETYPE_PRIVATE_HEADERS
 	${FREETYPE_SOURCE_DIR}/include/ft2build.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftconfig.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftheader.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftmodule.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftoption.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftstdlib.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftconfig.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftmodule.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftoption.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftstdlib.h
 )
 
 SET(FREETYPE_SRCS

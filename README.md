@@ -34,7 +34,7 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.18
+Latest version tested: 1.6.21
 
 Sources for libpng can be downloaded from:
 
@@ -43,7 +43,7 @@ http://www.libpng.org/pub/png/libpng.html
 
 libjpeg
 -------
-Latest version tested: 9a
+Latest version tested: 9b
 
 Sources for libjpeg can be downloaded from:
 
@@ -52,7 +52,7 @@ http://www.ijg.org/
 
 libtiff
 -------
-Latest version tested: 4.0.4
+Latest version tested: 4.0.6
 
 Sources for libtiff can be downloaded from:
 
@@ -61,7 +61,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.6
+Latest version tested: 2.6.2
 
 Sources for FreeType can be downloaded from:
 
@@ -79,7 +79,7 @@ http://www.opengl.org/resources/libraries/glut/
 
 GIFLIB
 ------
-Latest version tested: 5.1.1
+Latest version tested: 5.1.2
 
 Sources for GIFLIB can be downloaded from:
 
