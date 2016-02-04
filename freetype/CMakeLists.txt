@@ -23,7 +23,7 @@ FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
 
 # Create new version of ftheader.h to use in include dir
 SET(PUBLIC_FTCONFIG_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
-FILE(READ ${FREETYPE_SOURCE_DIR}/include/config/ftheader.h FTHEADER_H_FILE_CONTENT)
+FILE(READ ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h FTHEADER_H_FILE_CONTENT)
 	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/" 
 		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
@@ -31,52 +31,55 @@ FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
 
 SET(FREETYPE_PRIVATE_HEADERS
 	${FREETYPE_SOURCE_DIR}/include/ft2build.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftconfig.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftheader.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftmodule.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftoption.h
-	${FREETYPE_SOURCE_DIR}/include/config/ftstdlib.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftconfig.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftmodule.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftoption.h
+	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftstdlib.h
 )
 
 SET(FREETYPE_SRCS
 	${CMAKE_CURRENT_BINARY_DIR}/ftdebug.c
 	
 	${FREETYPE_SOURCE_DIR}/src/autofit/autofit.c
-	${FREETYPE_SOURCE_DIR}/src/bdf/bdf.c
-	${FREETYPE_SOURCE_DIR}/src/cff/cff.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftbase.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftbbox.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftbdf.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftbitmap.c
-	${FREETYPE_SOURCE_DIR}/src/cache/ftcache.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftcid.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftfntfmt.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftfstype.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftgasp.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftglyph.c
-	${FREETYPE_SOURCE_DIR}/src/gzip/ftgzip.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftinit.c
-	${FREETYPE_SOURCE_DIR}/src/lzw/ftlzw.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftstroke.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftsystem.c
-	${FREETYPE_SOURCE_DIR}/src/smooth/smooth.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftbbox.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftmm.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftpfr.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftsynth.c
-	${FREETYPE_SOURCE_DIR}/src/base/fttype1.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftwinfnt.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftfntfmt.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftgxval.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftinit.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftmm.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftotval.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftpatent.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftpfr.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftstroke.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftsynth.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftsystem.c
+	${FREETYPE_SOURCE_DIR}/src/base/fttype1.c
+	${FREETYPE_SOURCE_DIR}/src/base/ftwinfnt.c
+	${FREETYPE_SOURCE_DIR}/src/bdf/bdf.c
+	${FREETYPE_SOURCE_DIR}/src/bzip2/ftbzip2.c
+	${FREETYPE_SOURCE_DIR}/src/cache/ftcache.c
+	${FREETYPE_SOURCE_DIR}/src/cff/cff.c
+	${FREETYPE_SOURCE_DIR}/src/cid/type1cid.c
+	${FREETYPE_SOURCE_DIR}/src/gzip/ftgzip.c
+	${FREETYPE_SOURCE_DIR}/src/lzw/ftlzw.c
 	${FREETYPE_SOURCE_DIR}/src/pcf/pcf.c
 	${FREETYPE_SOURCE_DIR}/src/pfr/pfr.c
 	${FREETYPE_SOURCE_DIR}/src/psaux/psaux.c
-	${FREETYPE_SOURCE_DIR}/src/pshinter/pshinter.c
-	${FREETYPE_SOURCE_DIR}/src/psnames/psmodule.c
+	${FREETYPE_SOURCE_DIR}/src/pshinter/pshinter
+	${FREETYPE_SOURCE_DIR}/src/psnames/psnames.c
 	${FREETYPE_SOURCE_DIR}/src/raster/raster.c
 	${FREETYPE_SOURCE_DIR}/src/sfnt/sfnt.c
-	${FREETYPE_SOURCE_DIR}/src/truetype/truetype.c
+	${FREETYPE_SOURCE_DIR}/src/smooth/smooth.c
+	${FREETYPE_SOURCE_DIR}/src/truetype/truetype
 	${FREETYPE_SOURCE_DIR}/src/type1/type1.c
-	${FREETYPE_SOURCE_DIR}/src/cid/type1cid.c
 	${FREETYPE_SOURCE_DIR}/src/type42/type42.c
 	${FREETYPE_SOURCE_DIR}/src/winfonts/winfnt.c
 )

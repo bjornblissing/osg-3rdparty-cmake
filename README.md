@@ -61,7 +61,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.6
+Latest version tested: 2.6.2
 
 Sources for FreeType can be downloaded from:
 
