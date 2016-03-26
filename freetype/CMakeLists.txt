@@ -17,16 +17,16 @@ CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
 # Create new version of ft2build.h to use in include dir
 SET(PUBLIC_FT2BUILD_H "${CMAKE_CURRENT_BINARY_DIR}/ft2build.h")
 FILE(READ ${FREETYPE_SOURCE_DIR}/include/ft2build.h FT2BUILD_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#include([ ]+)<" "#include\\1<freetype/" 
-		NEW_FT2BUILD_H_FILE_CONTENT "${FT2BUILD_H_FILE_CONTENT}")
-FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
+#	STRING(REGEX REPLACE "#include([ ]+)<" "#include\\1<freetype/"
+#		NEW_FT2BUILD_H_FILE_CONTENT "${FT2BUILD_H_FILE_CONTENT}")
+FILE(WRITE ${PUBLIC_FT2BUILD_H} "${FT2BUILD_H_FILE_CONTENT}")
 
 # Create new version of ftheader.h to use in include dir
 SET(PUBLIC_FTCONFIG_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
 FILE(READ ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h FTHEADER_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/" 
-		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
-FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
+#	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/"
+#		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
+FILE(WRITE ${PUBLIC_FTCONFIG_H} "${FTHEADER_H_FILE_CONTENT}")
 
 
 SET(FREETYPE_PRIVATE_HEADERS
@@ -85,24 +85,24 @@ SET(FREETYPE_SRCS
 )
 
 # Add all freetype include files
-FILE(GLOB FREETYPE_INCLUDE 
-	"${FREETYPE_SOURCE_DIR}/include/*.h"
+FILE(GLOB FREETYPE_INCLUDE
+	"${FREETYPE_SOURCE_DIR}/include/freetype/*.h"
 )
 
-FILE(GLOB FREETYPE_INCLUDE_CONFIG 
-	"${FREETYPE_SOURCE_DIR}/include/config/*.h"
+FILE(GLOB FREETYPE_INCLUDE_CONFIG
+	"${FREETYPE_SOURCE_DIR}/include/freetype/config/*.h"
 )
 
 # Remove ftheader.h
-STRING(REGEX REPLACE "${FREETYPE_SOURCE_DIR}/include/config/ftheader.h" "" 
+STRING(REGEX REPLACE "${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h" ""
 		FREETYPE_INCLUDE_CONFIG "${FREETYPE_INCLUDE_CONFIG}")
 
-FILE(GLOB FREETYPE_INCLUDE_INTERNAL 
-	"${FREETYPE_SOURCE_DIR}/include/internal/*.h"
+FILE(GLOB FREETYPE_INCLUDE_INTERNAL
+	"${FREETYPE_SOURCE_DIR}/include/freetype/internal/*.h"
 )
 
-FILE(GLOB FREETYPE_INCLUDE_INTERNAL_SERVICES 
-	"${FREETYPE_SOURCE_DIR}/include/internal/services*.h"
+FILE(GLOB FREETYPE_INCLUDE_INTERNAL_SERVICES
+	"${FREETYPE_SOURCE_DIR}/include/freetype/internal/services*.h"
 )
 
 # Dependent include files
