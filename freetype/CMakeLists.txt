@@ -2,6 +2,26 @@ PROJECT(freetype C)
 
 SET(TARGET_LIB freetype)
 
+# Make sure that we use the correct freetype headers directory
+UNSET(FREETYPE_HEADERS_DIR CACHE)
+FIND_PATH(FREETYPE_HEADERS_DIR NAMES freetype.h HINTS 
+	${FREETYPE_SOURCE_DIR}/include/freetype
+	${FREETYPE_SOURCE_DIR}/include/)
+
+MARK_AS_ADVANCED(FREETYPE_HEADERS_DIR)
+
+SET(FREETYPE_VERSION_FILE "${FREETYPE_HEADERS_DIR}/freetype.h")
+	
+IF(EXISTS "${FREETYPE_VERSION_FILE}") 
+	FILE(STRINGS "${FREETYPE_VERSION_FILE}" FREETYPE_VERSION_FILE_CONTENTS REGEX "#define FREETYPE_[A-Z]+[ \t]+[0-9]+")
+
+	STRING(REGEX REPLACE ".*#define FREETYPE_MAJOR[ \t]+([0-9]+).*" "\\1" FREETYPE_VERSION_MAJOR ${FREETYPE_VERSION_FILE_CONTENTS})
+	STRING(REGEX REPLACE ".*#define FREETYPE_MINOR[ \t]+([0-9]+).*" "\\1" FREETYPE_VERSION_MINOR ${FREETYPE_VERSION_FILE_CONTENTS})
+	STRING(REGEX REPLACE ".*#define FREETYPE_PATCH[ \t]+([0-9]+).*" "\\1" FREETYPE_VERSION_PATCH ${FREETYPE_VERSION_FILE_CONTENTS})
+	
+	SET(FREETYPE_VERSION "${FREETYPE_VERSION_MAJOR}.${FREETYPE_VERSION_MINOR}.${FREETYPE_VERSION_PATCH}")
+ENDIF()
+
 
 IF(MSVC)
 	SET(ftdebug "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c")
@@ -17,51 +37,44 @@ CONFIGURE_FILE(${ftdebug} ftdebug.c @ONLY)
 # Create new version of ft2build.h to use in include dir
 SET(PUBLIC_FT2BUILD_H "${CMAKE_CURRENT_BINARY_DIR}/ft2build.h")
 FILE(READ ${FREETYPE_SOURCE_DIR}/include/ft2build.h FT2BUILD_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#include([ ]+)<" "#include\\1<freetype/" 
-		NEW_FT2BUILD_H_FILE_CONTENT "${FT2BUILD_H_FILE_CONTENT}")
+	# Add freetype to path
+	STRING(REGEX REPLACE "#include([ ]+)<"
+		"#include\\1<freetype/"
+		NEW_FT2BUILD_H_FILE_CONTENT 
+		"${FT2BUILD_H_FILE_CONTENT}")
+	# Remove duplicate freetypes in path
+	STRING(REGEX REPLACE "freetype/freetype"
+		"freetype" 
+		NEW_FT2BUILD_H_FILE_CONTENT
+		"${NEW_FT2BUILD_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
+ 
+
+# Make sure that we use the correct freetype config directory
+UNSET(FREETYPE_CONFIG_DIR CACHE)
+
+FIND_PATH(FREETYPE_CONFIG_DIR NAMES ftheader.h HINTS 
+	${FREETYPE_SOURCE_DIR}/include/freetype/config
+	${FREETYPE_SOURCE_DIR}/include/config)
 
 # Create new version of ftheader.h to use in include dir
 SET(PUBLIC_FTCONFIG_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
-FILE(READ ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h FTHEADER_H_FILE_CONTENT)
-	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<" "#define \\1 <freetype/" 
-		NEW_FTHEADER_H_FILE_CONTENT "${FTHEADER_H_FILE_CONTENT}")
+FILE(READ ${FREETYPE_CONFIG_DIR}/ftheader.h FTHEADER_H_FILE_CONTENT)
+	# Add freetype to path
+	STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<"
+		"#define \\1 <freetype/" 
+		NEW_FTHEADER_H_FILE_CONTENT
+		"${FTHEADER_H_FILE_CONTENT}")
+	# Remove duplicate freetypes in path
+	STRING(REGEX REPLACE "freetype/freetype"
+		"freetype" 
+		NEW_FTHEADER_H_FILE_CONTENT
+		"${NEW_FTHEADER_H_FILE_CONTENT}")
 FILE(WRITE ${PUBLIC_FTCONFIG_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
 
+MARK_AS_ADVANCED(FREETYPE_CONFIG_DIR)
 
 SET(FREETYPE_PRIVATE_HEADERS
-	${FREETYPE_SOURCE_DIR}/include/ft2build.h
-	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftconfig.h
-	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h
-	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftmodule.h
-	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftoption.h
-	${FREETYPE_SOURCE_DIR}/include/freetype/config/ftstdlib.h
-)
-
-SET(FREETYPE_SRCS
-	${CMAKE_CURRENT_BINARY_DIR}/ftdebug.c
-	
-	${FREETYPE_SOURCE_DIR}/src/autofit/autofit.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftbase.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftbbox.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftbdf.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftbitmap.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftcid.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftfntfmt.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftfstype.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftgasp.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftglyph.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftgxval.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftinit.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftmm.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftotval.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftpatent.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftpfr.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftstroke.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftsynth.c
-	${FREETYPE_SOURCE_DIR}/src/base/ftsystem.c
-	${FREETYPE_SOURCE_DIR}/src/base/fttype1.c
 	${FREETYPE_SOURCE_DIR}/src/base/ftwinfnt.c
 	${FREETYPE_SOURCE_DIR}/src/bdf/bdf.c
 	${FREETYPE_SOURCE_DIR}/src/bzip2/ftbzip2.c
@@ -86,25 +99,22 @@ SET(FREETYPE_SRCS
 
 # Add all freetype include files
 FILE(GLOB FREETYPE_INCLUDE 
-	"${FREETYPE_SOURCE_DIR}/include/*.h"
+	"${FREETYPE_HEADERS_DIR}/*.h"
 )
-
 FILE(GLOB FREETYPE_INCLUDE_CONFIG 
-	"${FREETYPE_SOURCE_DIR}/include/config/*.h"
+	"${FREETYPE_HEADERS_DIR}/config/*.h"
 )
-
 # Remove ftheader.h
-STRING(REGEX REPLACE "${FREETYPE_SOURCE_DIR}/include/config/ftheader.h" "" 
-		FREETYPE_INCLUDE_CONFIG "${FREETYPE_INCLUDE_CONFIG}")
+STRING(REGEX REPLACE "${FREETYPE_HEADERS_DIR}/config/ftheader.h" "" 
+	FREETYPE_INCLUDE_CONFIG "${FREETYPE_INCLUDE_CONFIG}")
 
 FILE(GLOB FREETYPE_INCLUDE_INTERNAL 
-	"${FREETYPE_SOURCE_DIR}/include/internal/*.h"
+	"${FREETYPE_HEADERS_DIR}/internal/*.h"
 )
 
 FILE(GLOB FREETYPE_INCLUDE_INTERNAL_SERVICES 
-	"${FREETYPE_SOURCE_DIR}/include/internal/services*.h"
+	"${FREETYPE_HEADERS_DIR}/internal/services*.h"
 )
-
 # Dependent include files
 INCLUDE_DIRECTORIES(${FREETYPE_SOURCE_DIR} ${FREETYPE_SOURCE_DIR}/include)
 
