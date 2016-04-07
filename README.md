@@ -94,3 +94,13 @@ Latest version tested: nmoinvaz/minizip@16455205a717532e416d92c40df44f3b1797d7d8
 Sources for MINIZIP can be downloaded from:
 
 http://github.com/nmoinvaz/minizip
+
+
+cURL
+----
+
+Latest version tested: 7.48.0
+
+Sources for cURL can be downloaded from:
+
+http://curl.haxx.se/
