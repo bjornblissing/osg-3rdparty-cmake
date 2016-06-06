@@ -4,8 +4,8 @@ SET(TARGET_LIB libtiff)
 
 
 IF(MSVC)
-	SET(tif_config "${LIFTIFF_SOURCE_DIR}/libtiff/tif_config.vc.h")
-	SET(tiffconf "${LIFTIFF_SOURCE_DIR}/libtiff/tiffconf.vc.h")
+	SET(tif_config "${LIBTIFF_SOURCE_DIR}/libtiff/tif_config.vc.h")
+	SET(tiffconf "${LIBTIFF_SOURCE_DIR}/libtiff/tiffconf.vc.h")
 ENDIF()
 
 IF(MINGW)
@@ -17,7 +17,7 @@ CONFIGURE_FILE(${tif_config} tif_config.h @ONLY)
 CONFIGURE_FILE(${tiffconf} tiffconf.h @ONLY)
 
 
-SET(_LIBTIFF_VERSION_FILE "${LIFTIFF_SOURCE_DIR}/VERSION")
+SET(_LIBTIFF_VERSION_FILE "${LIBTIFF_SOURCE_DIR}/VERSION")
 	
 IF(EXISTS "${_LIBTIFF_VERSION_FILE}") 
 	FILE(STRINGS "${_LIBTIFF_VERSION_FILE}" LIBTIFF_VERSION REGEX "[0-9]+\\.[0-9]+\\.[0-9]+")
@@ -27,62 +27,62 @@ ENDIF()
 SET(LIBTIFF_PUBLIC_HEADERS
 	${CMAKE_CURRENT_BINARY_DIR}/tiffconf.h
 
-	${LIFTIFF_SOURCE_DIR}/libtiff/tiff.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/tiffio.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/tiffvers.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tiff.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tiffio.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tiffvers.h
 )
 SET(LIBTIFF_PRIVATE_HEADERS
 	${CMAKE_CURRENT_BINARY_DIR}/tif_config.h
 
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dir.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_predict.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/tiffiop.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/t4.h
-	${LIFTIFF_SOURCE_DIR}/libtiff/uvcode.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dir.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_fax3.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_predict.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/tiffiop.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/t4.h
+	${LIBTIFF_SOURCE_DIR}/libtiff/uvcode.h
 )
 SET(LIBTIFF_SRCS
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_aux.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_close.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_codec.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_color.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_compress.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dir.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirinfo.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirread.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dirwrite.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_dumpmode.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_error.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_extension.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_fax3sm.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_flush.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_getimage.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_jbig.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_jpeg.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_luv.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_lzw.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_next.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_ojpeg.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_open.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_packbits.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_pixarlog.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_predict.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_print.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_read.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_strip.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_swab.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_thunder.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_tile.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_version.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_warning.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_win32.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_write.c
-	${LIFTIFF_SOURCE_DIR}/libtiff/tif_zip.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_aux.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_close.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_codec.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_color.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_compress.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dir.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dirinfo.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dirread.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dirwrite.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_dumpmode.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_error.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_extension.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_fax3.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_fax3sm.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_flush.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_getimage.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_jbig.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_jpeg.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_luv.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_lzw.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_next.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_ojpeg.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_open.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_packbits.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_pixarlog.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_predict.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_print.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_read.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_strip.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_swab.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_thunder.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_tile.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_version.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_warning.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_win32.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_write.c
+	${LIBTIFF_SOURCE_DIR}/libtiff/tif_zip.c
 )
 
 # Dependent include files
-INCLUDE_DIRECTORIES("${LIFTIFF_SOURCE_DIR}/libtiff" ${CMAKE_CURRENT_BINARY_DIR})
+INCLUDE_DIRECTORIES("${LIBTIFF_SOURCE_DIR}/libtiff" ${CMAKE_CURRENT_BINARY_DIR})
 
 # Include ZLIB
 INCLUDE_DIRECTORIES("${ZLIB_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/zlib")
