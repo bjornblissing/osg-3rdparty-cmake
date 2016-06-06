@@ -99,7 +99,7 @@ http://github.com/nmoinvaz/minizip
 cURL
 ----
 
-Latest version tested: 7.48.0
+Latest version tested: 7.49.1
 
 Sources for cURL can be downloaded from:
 

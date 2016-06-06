@@ -107,6 +107,7 @@ ${CURL_SOURCE_DIR}/lib/strequal.c
 ${CURL_SOURCE_DIR}/lib/strerror.c
 ${CURL_SOURCE_DIR}/lib/strtok.c
 ${CURL_SOURCE_DIR}/lib/strtoofft.c
+${CURL_SOURCE_DIR}/lib/system_win32.c
 ${CURL_SOURCE_DIR}/lib/telnet.c
 ${CURL_SOURCE_DIR}/lib/tftp.c
 ${CURL_SOURCE_DIR}/lib/timeval.c
