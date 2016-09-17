@@ -22,6 +22,20 @@ So far these scripts has been tested with successfully with the following toolse
 
 * MinGW + GCC 4.8.2
 
+Instructions
+------------
+
+1. Download the CMake scripts from this repository.
+2. Download the source for the dependencies you would like to use from their respective location as specified below.
+3. Start the CMake GUI and select the directory with the CMake scripts as your source directory. Use any desired output directory as binary directory.
+4. Press **Configure** inside the CMake GUI. 
+5. Fill in the location of the downloaded sources of your desired dependencies and press "Configure" again. Repeat until there is no more errors and warnings in CMake. 
+6. Press **Generate** inside the CMake GUI. This will generate solution file inside your binary directory.
+7. Open the solution file in your IDE.
+8. Build the `ALL_BUILD` project for both debug and release.
+9. Build the `INSTALL` project for both debug and release.
+
+In your binary directory there will now be a folder named `3rdParty` with a sub-folder named after your target platform. Inside this folder there should be all your headers and libraries.
 
 zlib
 ----
