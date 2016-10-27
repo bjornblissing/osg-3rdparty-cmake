@@ -27,7 +27,9 @@ License
 
 Each of the dependencies keep their original licenses since their scripts are to be considered derivative works. 
 
-The top level script is licensed according to the `The Unlicense`.
+The top level script is licensed according to the `Unlicense`:
+
+http://unlicense.org/
 
 
 Instructions
