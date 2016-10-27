@@ -97,7 +97,7 @@ Latest version tested: 3.7
 
 Sources for GLUT can be downloaded from:
 
-http://www.opengl.org/resources/libraries/glut/
+https://github.com/markkilgard/glut
 
 
 GIFLIB
