@@ -22,6 +22,14 @@ So far these scripts has been tested with successfully with the following toolse
 
 * MinGW + GCC 4.8.2
 
+License
+-------
+
+Each of the dependencies keep their original licenses since their scripts are to be considered derivative works. 
+
+The top level script is licensed according to the `The Unlicense`.
+
+
 Instructions
 ------------
 
@@ -36,6 +44,7 @@ Instructions
 9. Build the `INSTALL` project for both debug and release.
 
 In your binary directory there will now be a folder named `3rdParty` with a sub-folder named after your target platform. Inside this folder there should be all your headers and libraries.
+
 
 zlib
 ----
