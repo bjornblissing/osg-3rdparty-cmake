@@ -112,6 +112,8 @@ IF(MSVC)
       ${ZLIB_SOURCE_DIR}/contrib/masmx64/gvmat64.asm
       ${ZLIB_SOURCE_DIR}/contrib/masmx64/inffasx64.asm
     )
+	
+	LIST(APPEND ZLIB_SRCS ${ZLIB_SOURCE_DIR}/contrib/masmx64/inffas8664.c)
   ENDIF()
 
   IF(ZLIB_ASMS)
