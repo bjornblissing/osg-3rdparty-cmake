@@ -161,7 +161,7 @@ IF(UNIX)
   # On unix-like platforms the library is almost always called libz
    SET_TARGET_PROPERTIES(zlib PROPERTIES OUTPUT_NAME z)
    IF(NOT APPLE)
-   SET_TARGET_PROPERTIES(zlib PROPERTIES LINK_FLAGS "-Wl,--version-script,\"${CMAKE_CURRENT_SOURCE_DIR}/zlib.map\"")
+   SET_TARGET_PROPERTIES(zlib PROPERTIES LINK_FLAGS "-Wl,--version-script,\"${ZLIB_SOURCE_DIR}/zlib.map\"")
    ENDIF()
 ELSEIF(BUILD_SHARED_LIBS AND WIN32)
   # Creates zlib1.dll when building shared library version
