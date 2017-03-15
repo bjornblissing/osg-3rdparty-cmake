@@ -2,6 +2,7 @@ PROJECT(curl C)
 
 SET(TARGET_LIB libcurl)
 
+CONFIGURE_FILE("${CURL_SOURCE_DIR}/include/curl/curlbuild.h.dist" "${CURL_SOURCE_DIR}/include/curl/curlbuild.h" @ONLY)
 
 SET(CURL_PUBLIC_HEADERS
   ${CURL_SOURCE_DIR}/include/curl/curl.h
@@ -11,8 +12,10 @@ SET(CURL_PUBLIC_HEADERS
   ${CURL_SOURCE_DIR}/include/curl/curlrules.h
   ${CURL_SOURCE_DIR}/include/curl/multi.h
 )
+
 SET(CURL_PRIVATE_HEADERS
 )
+
 SET(CURL_SRCS
   ${CURL_SOURCE_DIR}/lib/amigaos.c
   ${CURL_SOURCE_DIR}/lib/asyn-ares.c
@@ -87,8 +90,9 @@ SET(CURL_SRCS
   ${CURL_SOURCE_DIR}/lib/pipeline.c
   ${CURL_SOURCE_DIR}/lib/pop3.c
   ${CURL_SOURCE_DIR}/lib/progress.c
-  ${CURL_SOURCE_DIR}/lib/rawstr.c
+#  ${CURL_SOURCE_DIR}/lib/rawstr.c
   ${CURL_SOURCE_DIR}/lib/rtsp.c
+  ${CURL_SOURCE_DIR}/lib/rand.c
   ${CURL_SOURCE_DIR}/lib/security.c
   ${CURL_SOURCE_DIR}/lib/select.c
   ${CURL_SOURCE_DIR}/lib/sendf.c
@@ -103,7 +107,8 @@ SET(CURL_SRCS
   ${CURL_SOURCE_DIR}/lib/splay.c
   ${CURL_SOURCE_DIR}/lib/ssh.c
   ${CURL_SOURCE_DIR}/lib/strdup.c
-  ${CURL_SOURCE_DIR}/lib/strequal.c
+#  ${CURL_SOURCE_DIR}/lib/strequal.c
+  ${CURL_SOURCE_DIR}/lib/strcase.c
   ${CURL_SOURCE_DIR}/lib/strerror.c
   ${CURL_SOURCE_DIR}/lib/strtok.c
   ${CURL_SOURCE_DIR}/lib/strtoofft.c
