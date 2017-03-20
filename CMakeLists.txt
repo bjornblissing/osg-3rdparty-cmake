@@ -19,21 +19,23 @@ ENDIF()
 
 IF (MSVC)
   IF (${MSVC_VERSION} EQUAL 1600)
-    SET(COMPILER "v100") # Visual Studio 2010
+    SET(TOOLSET "v100") # Visual Studio 2010
   ELSEIF (${MSVC_VERSION} EQUAL 1700)
-    SET(COMPILER "v110") # Visual Studio 2012
+    SET(TOOLSET "v110") # Visual Studio 2012
   ELSEIF (${MSVC_VERSION} EQUAL 1800)
-    SET(COMPILER "v120") # Visual Studio 2013
+    SET(TOOLSET "v120") # Visual Studio 2013
   ELSEIF (${MSVC_VERSION} EQUAL 1900)
-    SET(COMPILER "v140") # Visual Studio 2015
+    SET(TOOLSET "v140") # Visual Studio 2015
+  ELSEIF (${MSVC_VERSION} EQUAL 1910)
+    SET(TOOLSET "v141") # Visual Studio 2017
   ENDIF()
 ENDIF()
 
 IF(MINGW)
-  SET(COMPILER "mingw")
+  SET(TOOLSET "mingw")
 ENDIF()
 
-SET(dirname "${COMPILER}-${BITS}")
+SET(dirname "${TOOLSET}-${BITS}")
 
 #Set directories
 SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_BINARY_DIR}/3rdParty/${dirname}/bin")
