@@ -88,7 +88,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.6.3
+Latest version tested: 2.7.1
 
 Sources for FreeType can be downloaded from:
 
