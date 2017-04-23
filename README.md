@@ -106,7 +106,7 @@ https://github.com/markkilgard/glut
 
 GIFLIB
 ------
-Latest version tested: 5.1.2
+Latest version tested: 5.1.4
 
 Sources for GIFLIB can be downloaded from:
 
