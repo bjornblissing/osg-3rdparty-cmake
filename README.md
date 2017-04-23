@@ -21,6 +21,9 @@ So far these scripts has been tested with successfully with the following toolse
 * Visual Studio 2015 - 32 bit build
 * Visual Studio 2015 - 64 bit build
 
+* Visual Studio 2017 - 32 bit build
+* Visual Studio 2017 - 64 bit build
+
 * MinGW + GCC 4.8.2
 
 License
