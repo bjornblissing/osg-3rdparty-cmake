@@ -50,7 +50,7 @@ In your binary directory there will now be a folder named `3rdParty` with a sub-
 
 zlib
 ----
-Latest version tested: 1.2.8
+Latest version tested: 1.2.11
 
 Sources for zlib can be downloaded from:
 
