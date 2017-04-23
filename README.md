@@ -16,6 +16,7 @@ So far these scripts has been tested with successfully with the following toolse
 * Visual Studio 2010 - 64 bit build
 
 * Visual Studio 2013 - 32 bit build
+* Visual Studio 2013 - 64 bit build
 
 * Visual Studio 2015 - 32 bit build
 * Visual Studio 2015 - 64 bit build
