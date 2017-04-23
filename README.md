@@ -116,7 +116,7 @@ http://sourceforge.net/projects/giflib/
 MINIZIP
 -------
 
-Latest version tested: nmoinvaz/minizip@16455205a717532e416d92c40df44f3b1797d7d8
+Latest version tested: nmoinvaz/minizip@f5fb00d3cf54efdeebb9dfa7a39a0b279e46c5a8
 
 Sources for MINIZIP can be downloaded from:
 
