@@ -1,8 +1,14 @@
-PROJECT(zlib C)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)
 
-SET(TARGET_LIB zlib)
+# parse the full version number from zlib.h and include in ZLIB_FULL_VERSION
+FILE(READ ${ZLIB_SOURCE_DIR}/zlib.h _zlib_h_contents)
+STRING(REGEX REPLACE ".*#define[ \t]+ZLIB_VERSION[ \t]+\"([-0-9A-Za-z.]+)\".*" "\\1" ZLIB_FULL_VERSION ${_zlib_h_contents})
 
-SET(ZLIB_VERSION "1.2.8")
+PROJECT(zlib VERSION ${ZLIB_FULL_VERSION} LANGUAGES C)
+
+# Use GNUInstallDirs to install libraries into correct
+# locations on all platforms.
+INCLUDE(GNUInstallDirs)
 
 OPTION(ZLIB_USE_ASM686 "Enable building i686 assembly implementation" OFF)
 OPTION(ZLIB_USE_AMD64 "Enable building amd64 assembly implementation" OFF)
@@ -14,28 +20,53 @@ INCLUDE(CheckFunctionExists)
 INCLUDE(CheckIncludeFile)
 INCLUDE(CheckCSourceCompiles)
 
+#
+# Check to see if we have large file support
+#
 CHECK_INCLUDE_FILE(sys/types.h HAVE_SYS_TYPES_H)
 CHECK_INCLUDE_FILE(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILE(stddef.h HAVE_STDDEF_H)
+
+
+if(HAVE_SYS_TYPES_H)
+    list(APPEND PRIVATE_DEFINITIONS -DHAVE_SYS_TYPES_H)
+endif()
+if(HAVE_STDINT_H)
+    list(APPEND PRIVATE_DEFINITIONS -DHAVE_STDINT_H)
+endif()
+if(HAVE_STDDEF_H)
+    list(APPEND PRIVATE_DEFINITIONS -DHAVE_STDDEF_H)
+endif()
+
+check_type_size(off64_t OFF64_T)
+if(HAVE_OFF64_T)
+   LIST(APPEND PRIVATE_DEFINITIONS -D_LARGEFILE64_SOURCE=1)
+endif()
 
 #
 # Check for fseeko
 #
 check_function_exists(fseeko HAVE_FSEEKO)
 IF(NOT HAVE_FSEEKO)
-  ADD_DEFINITIONS(-DNO_FSEEKO)
+  LIST(APPEND PRIVATE_DEFINITIONS -DNO_FSEEKO)
 ENDIF()
+
+#
+# Check for unistd.h
+#
+check_include_file(unistd.h Z_HAVE_UNISTD_H)
 
 # Visual studio options
 IF(MSVC)
   SET(CMAKE_DEBUG_POSTFIX "d")
-  ADD_DEFINITIONS(-D_CRT_SECURE_NO_DEPRECATE)
-  ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE)
+  LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_DEPRECATE) # Disable warnings for unsecure CRT functions
+  LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_NONSTDC_NO_DEPRECATE) # Disable warnings for POSIX deprecated functions
 ENDIF()
 
 SET(ZLIB_PC zlib.pc)
 CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zlib.pc.cmakein ${ZLIB_PC} @ONLY)
 CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zconf.h.cmakein zconf.h @ONLY)
+CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zlib.h zlib.h COPYONLY)
 
 
 #============================================================================
@@ -44,7 +75,7 @@ CONFIGURE_FILE(${ZLIB_SOURCE_DIR}/zconf.h.cmakein zconf.h @ONLY)
 
 SET(ZLIB_PUBLIC_HDRS
   ${CMAKE_CURRENT_BINARY_DIR}/zconf.h
-  ${ZLIB_SOURCE_DIR}/zlib.h
+  ${CMAKE_CURRENT_BINARY_DIR}/zlib.h
 )
 
 SET(ZLIB_PRIVATE_HDRS
@@ -77,9 +108,6 @@ SET(ZLIB_SRCS
   ${ZLIB_SOURCE_DIR}/zutil.c
 )
 
-# Dependent include files
-INCLUDE_DIRECTORIES(${ZLIB_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-
 IF(NOT MINGW)
   SET(ZLIB_DLL_SRCS
     ${ZLIB_SOURCE_DIR}/win32/zlib1.rc # If present will override custom build rule below.
@@ -94,7 +122,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
   ENDIF ()
 
   IF(ZLIB_ASMS)
-    ADD_DEFINITIONS(-DASMV)
+    LIST(APPEND PRIVATE_DEFINITIONS -DASMV)
     SET_SOURCE_FILES_PROPERTIES(${ZLIB_ASMS} PROPERTIES LANGUAGE C COMPILE_FLAGS -DNO_UNDERLINE)
   ENDIF()
 ENDIF()
@@ -117,14 +145,9 @@ IF(MSVC)
   ENDIF()
 
   IF(ZLIB_ASMS)
-    add_definitions(-DASMV -DASMINF)
+    LIST(APPEND PRIVATE_DEFINITIONS -DASMV -DASMINF)
   ENDIF()
 ENDIF()
-
-# parse the full version number from zlib.h and include in ZLIB_FULL_VERSION
-FILE(READ ${ZLIB_SOURCE_DIR}/zlib.h _zlib_h_contents)
-STRING(REGEX REPLACE ".*#define[ \t]+ZLIB_VERSION[ \t]+\"([-0-9A-Za-z.]+)\".*"
-  "\\1" ZLIB_FULL_VERSION ${_zlib_h_contents})
 
 IF(MINGW)
   # This gets us DLL resource information when compiling on MinGW.
@@ -143,6 +166,17 @@ IF(MINGW)
 ENDIF(MINGW)
 
 ADD_LIBRARY(zlib SHARED ${ZLIB_SRCS} ${ZLIB_ASMS} ${ZLIB_DLL_SRCS} ${ZLIB_PUBLIC_HDRS} ${ZLIB_PRIVATE_HDRS})
+
+# Dependent include files
+TARGET_INCLUDE_DIRECTORIES(zlib PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}> 
+  $<INSTALL_INTERFACE:include>
+  )
+
+TARGET_COMPILE_DEFINITIONS(zlib
+  PRIVATE ${PRIVATE_DEFINITIONS}
+  )
+
 SET_TARGET_PROPERTIES(zlib PROPERTIES DEFINE_SYMBOL ZLIB_DLL)
 SET_TARGET_PROPERTIES(zlib PROPERTIES SOVERSION 1)
 
@@ -177,16 +211,16 @@ IF(MINGW)
   SET_TARGET_PROPERTIES(zlib PROPERTIES SUFFIX "1.dll")
 ENDIF()
 
-# Runtime equals DLL-files
-# Archive equals static libraries
-# Library equals module libraries
-IF(NOT SKIP_INSTALL_LIBRARIES AND NOT SKIP_INSTALL_ALL )
-  INSTALL(TARGETS zlib
-    RUNTIME DESTINATION ${EXECUTABLE_OUTPUT_PATH}
-    LIBRARY DESTINATION ${LIBRARY_OUTPUT_PATH}
-    ARCHIVE DESTINATION ${ARCHIVE_OUTPUT_PATH})
-ENDIF()
 
-IF(NOT SKIP_INSTALL_HEADERS AND NOT SKIP_INSTALL_ALL )
-  INSTALL(FILES ${ZLIB_PUBLIC_HDRS} DESTINATION ${INCLUDE_OUTPUT_PATH})
-ENDIF()
+INSTALL(TARGETS zlib EXPORT zlib_export
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  )
+
+INSTALL(FILES 
+  ${ZLIB_PUBLIC_HDRS} 
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  )
+  
