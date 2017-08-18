@@ -21,39 +21,6 @@ ENDIF()
 
 SET(PUBLIC_FT2BUILD_H "${FREETYPE_SOURCE_DIR}/include/ft2build.h")
 
-
-# Create new version of ft2build.h to use in include dir
-#SET(PUBLIC_FT2BUILD_H "${CMAKE_CURRENT_BINARY_DIR}/ft2build.h")
-
-#FILE(READ ${FREETYPE_SOURCE_DIR}/include/ft2build.h FT2BUILD_H_FILE_CONTENT)
-#  # Add freetype to path
-#  STRING(REGEX REPLACE "#include([ ]+)<"
-#    "#include\\1<freetype/"
-#    NEW_FT2BUILD_H_FILE_CONTENT 
-#    "${FT2BUILD_H_FILE_CONTENT}")
-#  # Remove duplicate freetypes in path
-#  STRING(REGEX REPLACE "freetype/freetype/"
-#    "freetype/" 
-#    NEW_FT2BUILD_H_FILE_CONTENT
-#    "${NEW_FT2BUILD_H_FILE_CONTENT}")
-#FILE(WRITE ${PUBLIC_FT2BUILD_H} "${NEW_FT2BUILD_H_FILE_CONTENT}")
-
-# Create new version of ftheader.h to use in include dir
-#SET(PUBLIC_FTHEADER_H "${CMAKE_CURRENT_BINARY_DIR}/ftheader.h")
-#FILE(READ ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftheader.h FTHEADER_H_FILE_CONTENT)
-#  # Add freetype to path
-#  STRING(REGEX REPLACE "#define ([A-Za-z0-9_]+[ ]+)<"
-#    "#define \\1 <freetype/" 
-#    NEW_FTHEADER_H_FILE_CONTENT
-#    "${FTHEADER_H_FILE_CONTENT}")
-#  # Remove duplicate freetypes in path
-#  STRING(REGEX REPLACE "freetype/freetype/"
-#    "freetype/" 
-#    NEW_FTHEADER_H_FILE_CONTENT
-#    "${NEW_FTHEADER_H_FILE_CONTENT}")
-#FILE(WRITE ${PUBLIC_FTHEADER_H} "${NEW_FTHEADER_H_FILE_CONTENT}")
-
-
 SET(FREETYPE_BASE_SRCS
   ${FTDEBUG}
   ${FREETYPE_SOURCE_DIR}/src/autofit/autofit.c
