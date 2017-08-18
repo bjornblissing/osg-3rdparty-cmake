@@ -6,6 +6,9 @@ PROJECT(glut LANGUAGES C)
 # locations on all platforms.
 INCLUDE(GNUInstallDirs)
 
+OPTION(GLUT_BUILD_SHARED "Build shared version of the GLUT library." OFF)
+MARK_AS_ADVANCED(GLUT_BUILD_SHARED)
+
 SET(GLUT_PUBLIC_HEADERS
   ${GLUT_SOURCE_DIR}/include/GL/glut.h
 )
@@ -22,9 +25,11 @@ SET(GLUT_SRCS
   ${GLUT_SOURCE_DIR}/lib/glut/glut_dstr.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_event.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_ext.c
+  ${GLUT_SOURCE_DIR}/lib/glut/glut_fbc.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_fullscrn.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_gamemode.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_get.c
+  ${GLUT_SOURCE_DIR}/lib/glut/glut_glxext.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_hel10.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_hel12.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_hel18.c
@@ -51,6 +56,7 @@ SET(GLUT_SRCS
   ${GLUT_SOURCE_DIR}/lib/glut/glut_util.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_vidresize.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_warp.c
+  ${GLUT_SOURCE_DIR}/lib/glut/glut_wglext.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_win.c
   ${GLUT_SOURCE_DIR}/lib/glut/glut_winmisc.c
   ${GLUT_SOURCE_DIR}/lib/glut/win32_glx.c
@@ -60,9 +66,16 @@ SET(GLUT_SRCS
   ${GLUT_SOURCE_DIR}/lib/glut/win32_x11.c
 )
 
+SET(GLUT_EXPORT_DEFINTIONS
+  ${GLUT_SOURCE_DIR}/lib/glut/glut.def
+)
+
 
 IF(MSVC)
   LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
+  IF (GLUT_BUILD_SHARED)
+    LIST(APPEND PRIVATE_DEFINITIONS -D_DLL) # Build shared library
+  ENDIF()
   
   # Supress warnings
   LIST(APPEND PRIVATE_OPTIONS /wd4133) # type' : incompatible types - from 'type1' to 'type2'
@@ -78,7 +91,11 @@ IF(MINGW)
   LIST(APPEND PRIVATE_DEFINITIONS "-w") # 
 ENDIF(MINGW)
 
-ADD_LIBRARY(glut32 STATIC ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS})
+IF (${GLUT_BUILD_SHARED})
+  ADD_LIBRARY(glut32 SHARED ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS} ${GLUT_EXPORT_DEFINTIONS})
+ELSE()
+  ADD_LIBRARY(glut32 STATIC ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS})
+ENDIF()
 
 # Dependent include files
 TARGET_INCLUDE_DIRECTORIES(glut32 PUBLIC 
@@ -97,7 +114,11 @@ TARGET_COMPILE_OPTIONS(glut32
   )
 
 IF(MSVC)
-  TARGET_LINK_LIBRARIES(glut32 winmm.lib )
+  IF (${GLUT_BUILD_SHARED})
+    TARGET_LINK_LIBRARIES(glut32 winmm.lib OpenGL32.lib GlU32.lib)
+  ELSE()
+    TARGET_LINK_LIBRARIES(glut32 winmm.lib)
+  ENDIF()
 ENDIF(MSVC)
 
 
