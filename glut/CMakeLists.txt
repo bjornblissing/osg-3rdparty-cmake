@@ -6,8 +6,12 @@ PROJECT(glut LANGUAGES C)
 # locations on all platforms.
 INCLUDE(GNUInstallDirs)
 
-OPTION(GLUT_BUILD_SHARED "Build shared version of the GLUT library." OFF)
-MARK_AS_ADVANCED(GLUT_BUILD_SHARED)
+OPTION(GLUT_BUILD_STATIC "Build static version of the GLUT library." OFF)
+IF (${GLUT_BUILD_STATIC})
+  MESSAGE(STATUS "WARNING: Static version of GLUT library will require\n changes of osgviewerGLUT projects runtime library\n from /MD to /MT to be able to link correctly.\n")
+ENDIF()
+
+MARK_AS_ADVANCED(GLUT_BUILD_STATIC)
 
 SET(GLUT_PUBLIC_HEADERS
   ${GLUT_SOURCE_DIR}/include/GL/glut.h
@@ -73,8 +77,10 @@ SET(GLUT_EXPORT_DEFINTIONS
 
 IF(MSVC)
   LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
-  IF (GLUT_BUILD_SHARED)
-    LIST(APPEND PRIVATE_DEFINITIONS -D_DLL) # Build shared library
+  IF (${GLUT_BUILD_STATIC})
+    LIST(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>) # Build static runtime library
+  ELSE()
+    LIST(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MDd> $<$<CONFIG:Release>:/MD>) # Build shared runtime library
   ENDIF()
   
   # Supress warnings
@@ -91,10 +97,10 @@ IF(MINGW)
   LIST(APPEND PRIVATE_DEFINITIONS "-w") # 
 ENDIF(MINGW)
 
-IF (${GLUT_BUILD_SHARED})
-  ADD_LIBRARY(glut32 SHARED ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS} ${GLUT_EXPORT_DEFINTIONS})
-ELSE()
+IF (${GLUT_BUILD_STATIC})
   ADD_LIBRARY(glut32 STATIC ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS})
+ELSE()
+  ADD_LIBRARY(glut32 SHARED ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS} ${GLUT_EXPORT_DEFINTIONS})
 ENDIF()
 
 # Dependent include files
@@ -114,10 +120,10 @@ TARGET_COMPILE_OPTIONS(glut32
   )
 
 IF(MSVC)
-  IF (${GLUT_BUILD_SHARED})
-    TARGET_LINK_LIBRARIES(glut32 winmm.lib OpenGL32.lib GlU32.lib)
-  ELSE()
+  IF (${GLUT_BUILD_STATIC})
     TARGET_LINK_LIBRARIES(glut32 winmm.lib)
+  ELSE()
+    TARGET_LINK_LIBRARIES(glut32 winmm.lib OpenGL32.lib GlU32.lib)
   ENDIF()
 ENDIF(MSVC)
 
