@@ -1,0 +1,104 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.{build}
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+#---------------------------------#
+#           build matrix          #
+#---------------------------------#
+environment:
+  matrix:
+    # Visual Studio 2015 - 32 bit
+    - Name: v140-x86
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      Generator: Visual Studio 14 2015
+    # Visual Studio 2015 - 64 bit
+    - Name: v140-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015 
+      Generator: Visual Studio 14 2015 Win64
+    # Visual Studio 2017 - 32 bit
+    - Name: v141-x86
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      Generator: Visual Studio 15 2017
+    # Visual Studio 2017 - 64 bit
+    - Name: v141-x64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      Generator: Visual Studio 15 2017 Win64
+
+clone_folder: c:\projects\osg-3rdparty-cmake
+
+# Download 3rd party sources
+install:
+- cmd: >-
+    set HOME_DIR=%cd%
+    
+    git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/projects/3rdparty/zlib
+    
+    curl -O ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/lpng1632.zip
+    
+    7z x lpng1632.zip -oc:\projects\3rdparty\
+    
+    curl -O http://www.ijg.org/files/jpegsr9b.zip
+    
+    7z x jpegsr9b.zip -oc:\projects\3rdparty\
+    
+    git clone --depth 1 --single-branch --branch Release-v4-0-8 https://github.com/vadz/libtiff.git c:/projects/3rdparty/tiff-4.0.8
+    
+    git clone --depth 1 --single-branch --branch VER-2-8 git://git.sv.nongnu.org/freetype/freetype2.git c:/projects/3rdparty/freetype-2.8
+    
+    git clone https://github.com/markkilgard/glut.git c:/projects/3rdparty/glut
+    
+    cd c:\projects\3rdparty\glut
+    
+    git reset --hard 8cd96cb440f1f2fac3a154227937be39d06efa53
+    
+    cd %HOME_DIR%
+    
+    git clone --depth 1 --single-branch --branch 5.1.4 https://git.code.sf.net/p/giflib/code.git c:/projects/3rdparty/giflib-5.1.4
+    
+    git clone https://github.com/nmoinvaz/minizip.git c:/projects/3rdparty/minizip
+    
+    cd c:/projects/3rdparty/minizip
+    
+    git reset --hard 70e3fdad6021c38b5ecacda531df0802cd547bbf
+    
+    cd %HOME_DIR%
+    
+    curl -O https://curl.haxx.se/download/curl-7.54.1.zip
+    
+    7z x curl-7.54.1.zip -oc:\projects\3rdparty\
+    
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+
+build_script:
+- cmd: >-
+    mkdir build
+    
+    cd build
+    
+    cmake c:\projects\osg-3rdparty-cmake -G "%Generator%" -DZLIB_SOURCE_DIR=c:/projects/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/projects/3rdparty/lpng1632 -DLIBJPEG_SOURCE_DIR=c:/projects/3rdparty/jpeg-9b -DLIBTIFF_SOURCE_DIR=c:/projects/3rdparty/tiff-4.0.8 -DFREETYPE_SOURCE_DIR=c:/projects/3rdparty/freetype-2.8 -DGLUT_SOURCE_DIR=c:/projects/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/projects/3rdparty/giflib-5.1.4 -DMINIZIP_SOURCE_DIR=c:/projects/3rdparty/minizip -DCURL_SOURCE_DIR=c:/projects/3rdparty/curl-7.54.1
+    
+    cmake --build . --config "Debug" --target install 
+    
+    cmake --build . --config "Release" --target install 
+    
+    cd 3rdparty\%Name%
+    
+    7z a c:\projects\osg-3rdparty-cmake\%Name%.zip . 
+
+artifacts:
+- path: '%Name%.zip'
+  name: '%Name%'
+

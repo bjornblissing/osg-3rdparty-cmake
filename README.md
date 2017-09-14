@@ -11,6 +11,23 @@ By building the INSTALL target for both debug and release these scripts will cre
 Inside this folder there will folders created to represent each platform toolset.
 
 
+### Status: [![Build status](https://ci.appveyor.com/api/projects/status/xtrxxowo68nyrj9m?svg=true)](https://ci.appveyor.com/project/bjornblissing/osg-3rdparty-cmake)
+
+
+Prebuilt versions
+----------------
+
+Toolset | Prebuilt archive
+------------ | -------------
+Visual Studio 2015 32-bit | [v140-x86.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v140-x86.zip?job=Environment%3A+Name%3Dv140-x86%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2015%2C+Generator%3DVisual+Studio+14+2015)
+Visual Studio 2015 64-bit | [v140-x64.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v140-x64.zip?job=Environment%3A+Name%3Dv140-x64%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2015%2C+Generator%3DVisual+Studio+14+2015+Win64)
+Visual Studio 2017 32-bit | [v141-x86.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v141-x86.zip?job=Environment%3A+Name%3Dv141-x86%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2017%2C+Generator%3DVisual+Studio+15+2017)
+Visual Studio 2017 64-bit | [v141-x64.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v141-x64.zip?job=Environment%3A+Name%3Dv141-x64%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2017%2C+Generator%3DVisual+Studio+15+2017+Win64)
+
+
+_Prebuilt versions courtesy of [AppVeyor](https://www.appveyor.com)_
+
+
 License
 -------
 
