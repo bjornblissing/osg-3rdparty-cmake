@@ -42,9 +42,7 @@ install:
     
     git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/projects/3rdparty/zlib
     
-    curl -O ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/lpng1632.zip
-    
-    7z x lpng1632.zip -oc:\projects\3rdparty\
+    git clone --depth 1 --single-branch --branch v1.6.32  git://git.code.sf.net/p/libpng/code.git c:/projects/3rdparty/libpng-1.6.32
     
     curl -O http://www.ijg.org/files/jpegsr9b.zip
     
@@ -88,7 +86,7 @@ build_script:
     
     cd build
     
-    cmake c:\projects\osg-3rdparty-cmake -G "%Generator%" -DZLIB_SOURCE_DIR=c:/projects/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/projects/3rdparty/lpng1632 -DLIBJPEG_SOURCE_DIR=c:/projects/3rdparty/jpeg-9b -DLIBTIFF_SOURCE_DIR=c:/projects/3rdparty/tiff-4.0.8 -DFREETYPE_SOURCE_DIR=c:/projects/3rdparty/freetype-2.8 -DGLUT_SOURCE_DIR=c:/projects/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/projects/3rdparty/giflib-5.1.4 -DMINIZIP_SOURCE_DIR=c:/projects/3rdparty/minizip -DCURL_SOURCE_DIR=c:/projects/3rdparty/curl-7.54.1
+    cmake c:\projects\osg-3rdparty-cmake -G "%Generator%" -DZLIB_SOURCE_DIR=c:/projects/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/projects/3rdparty/libpng-1.6.32 -DLIBJPEG_SOURCE_DIR=c:/projects/3rdparty/jpeg-9b -DLIBTIFF_SOURCE_DIR=c:/projects/3rdparty/tiff-4.0.8 -DFREETYPE_SOURCE_DIR=c:/projects/3rdparty/freetype-2.8 -DGLUT_SOURCE_DIR=c:/projects/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/projects/3rdparty/giflib-5.1.4 -DMINIZIP_SOURCE_DIR=c:/projects/3rdparty/minizip -DCURL_SOURCE_DIR=c:/projects/3rdparty/curl-7.54.1
     
     cmake --build . --config "Debug" --target install 
     
