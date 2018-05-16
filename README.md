@@ -74,7 +74,7 @@ http://www.libpng.org/pub/png/libpng.html
 
 libjpeg
 -------
-Latest version tested: 9b
+Latest version tested: 9c
 
 Sources for libjpeg can be downloaded from:
 
