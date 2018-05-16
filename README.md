@@ -94,7 +94,7 @@ http://www.libtiff.org
 
 FreeType
 --------
-Latest version tested: 2.8.0
+Latest version tested: 2.9.1
 
 Sources for FreeType can be downloaded from:
 

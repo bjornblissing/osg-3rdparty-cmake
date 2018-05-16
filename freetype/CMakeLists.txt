@@ -77,13 +77,11 @@ SET(FREETYPE_PUBLIC_CONFIG_HEADERS
 SET(FREETYPE_PUBLIC_HEADERS
   ${FREETYPE_SOURCE_DIR}/include/freetype/freetype.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftadvanc.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftautoh.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftbbox.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftbdf.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftbitmap.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftbzip2.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftcache.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftcffdrv.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftchapters.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftcid.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/fterrdef.h
@@ -104,7 +102,6 @@ SET(FREETYPE_PUBLIC_HEADERS
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftmoderr.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftotval.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftoutln.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftpcfdrv.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftpfr.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftrender.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftsizes.h
@@ -113,21 +110,18 @@ SET(FREETYPE_PUBLIC_HEADERS
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftsynth.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftsystem.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/fttrigon.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftttdrv.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/fttypes.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ftwinfnt.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/t1tables.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/ttnameid.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/tttables.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/tttags.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ttunpat.h
   )
 
 SET(FREETYPE_PRIVATE_HEADERS 
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/autohint.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftcalc.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftdebug.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftdriver.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftgloadr.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/fthash.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftmemory.h
