@@ -65,7 +65,7 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.30
+Latest version tested: 1.6.34
 
 Sources for libpng can be downloaded from:
 
