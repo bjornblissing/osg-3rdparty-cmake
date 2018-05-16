@@ -66,7 +66,7 @@ install:
     
     cd c:/projects/3rdparty/minizip
     
-    git reset --hard 70e3fdad6021c38b5ecacda531df0802cd547bbf
+    git reset --hard dac37702b3fab4068ac9a7c4a992df7f0e4f14df
     
     cd %HOME_DIR%
     
