@@ -26,7 +26,7 @@ IF (MSVC)
     SET(TOOLSET "v120") # Visual Studio 2013
   ELSEIF (${MSVC_VERSION} EQUAL 1900)
     SET(TOOLSET "v140") # Visual Studio 2015
-  ELSEIF (${MSVC_VERSION} EQUAL 1910 OR ${MSVC_VERSION} EQUAL 1911)
+  ELSEIF (${MSVC_VERSION} GREATER 1910 AND ${MSVC_VERSION} LESS 1920)
     SET(TOOLSET "v141") # Visual Studio 2017
   ENDIF()
 ENDIF()
@@ -37,8 +37,10 @@ ENDIF()
 
 SET(dirname "${TOOLSET}-${BITS}")
 
-#Set directories
-SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/3rdParty/${dirname}" CACHE "Force change of path" PATH FORCE)
+# Set directories if not set explicitly
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/3rdParty/${dirname}" CACHE "Force change of path" PATH FORCE)
+ENDIF()
 
 SET(ZLIB_SOURCE_DIR CACHE PATH "Path where to find ZLIB source")
 SET(LIBPNG_SOURCE_DIR CACHE PATH "Path where to find LIBPNG source")
