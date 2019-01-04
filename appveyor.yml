@@ -2,6 +2,9 @@
 #      general configuration      #
 #---------------------------------#
 
+# Avoid cloning the entire repo, only get last commit
+clone_depth: 1
+
 # version format
 version: 1.0.{build}
 
@@ -10,6 +13,13 @@ branches:
   # whitelist
   only:
     - master
+
+
+#----------------------------------#
+#  cache third party dependencies  #
+#----------------------------------#
+cache:
+- c:\3rdparty -> appveyor.yml
 
 #---------------------------------#
 #           build matrix          #
@@ -35,45 +45,12 @@ environment:
 
 clone_folder: c:\projects\osg-3rdparty-cmake
 
-# Download 3rd party sources
+#----------------------------------#
+# install third party dependencies #
+#----------------------------------#
 install:
-- cmd: >-
-    set HOME_DIR=%cd%
-    
-    git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/projects/3rdparty/zlib
-    
-    git clone --depth 1 --single-branch --branch v1.6.34  git://git.code.sf.net/p/libpng/code.git c:/projects/3rdparty/libpng-1.6.34
-    
-    curl -O http://www.ijg.org/files/jpegsr9c.zip
-    
-    7z x jpegsr9c.zip -oc:\projects\3rdparty\
-    
-    git clone --depth 1 --single-branch --branch Release-v4-0-9 https://github.com/vadz/libtiff.git c:/projects/3rdparty/tiff-4.0.9
-    
-    git clone --depth 1 --single-branch --branch VER-2-9-1 git://git.sv.nongnu.org/freetype/freetype2.git c:/projects/3rdparty/freetype-2.9.1
-    
-    git clone https://github.com/markkilgard/glut.git c:/projects/3rdparty/glut
-    
-    cd c:\projects\3rdparty\glut
-    
-    git reset --hard 8cd96cb440f1f2fac3a154227937be39d06efa53
-    
-    cd %HOME_DIR%
-    
-    git clone --depth 1 --single-branch --branch 5.1.4 https://git.code.sf.net/p/giflib/code.git c:/projects/3rdparty/giflib-5.1.4
-    
-    git clone https://github.com/nmoinvaz/minizip.git c:/projects/3rdparty/minizip
-    
-    cd c:/projects/3rdparty/minizip
-    
-    git reset --hard dac37702b3fab4068ac9a7c4a992df7f0e4f14df
-    
-    cd %HOME_DIR%
-    
-    curl -O https://curl.haxx.se/download/curl-7.60.0.zip
-    
-    7z x curl-7.60.0.zip -oc:\projects\3rdparty\
-    
+- cmd: IF NOT EXIST "c:\3rdparty" download_dependencies.bat
+
 
 #---------------------------------#
 #       build configuration       #
@@ -86,7 +63,7 @@ build_script:
     
     cd build
     
-    cmake c:\projects\osg-3rdparty-cmake -G "%Generator%" -DZLIB_SOURCE_DIR=c:/projects/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/projects/3rdparty/libpng-1.6.34 -DLIBJPEG_SOURCE_DIR=c:/projects/3rdparty/jpeg-9c -DLIBTIFF_SOURCE_DIR=c:/projects/3rdparty/tiff-4.0.9 -DFREETYPE_SOURCE_DIR=c:/projects/3rdparty/freetype-2.9.1 -DGLUT_SOURCE_DIR=c:/projects/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/projects/3rdparty/giflib-5.1.4 -DMINIZIP_SOURCE_DIR=c:/projects/3rdparty/minizip -DCURL_SOURCE_DIR=c:/projects/3rdparty/curl-7.60.0 -DCMAKE_INSTALL_PREFIX="C:/projects/osg-3rdparty-cmake/build/3rdParty/%Name%"
+    cmake c:\projects\osg-3rdparty-cmake -G "%Generator%" -DZLIB_SOURCE_DIR=c:/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/3rdparty/libpng-1.6.34 -DLIBJPEG_SOURCE_DIR=c:/3rdparty/jpeg-9c -DLIBTIFF_SOURCE_DIR=c:/3rdparty/tiff-4.0.9 -DFREETYPE_SOURCE_DIR=c:/3rdparty/freetype-2.9.1 -DGLUT_SOURCE_DIR=c:/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/3rdparty/giflib-5.1.4 -DMINIZIP_SOURCE_DIR=c:/3rdparty/minizip -DCURL_SOURCE_DIR=c:/3rdparty/curl-7.60.0 -DCMAKE_INSTALL_PREFIX="C:/projects/osg-3rdparty-cmake/build/3rdParty/%Name%"
     
     cmake --build . --config "Debug" --target install 
     
