@@ -2,7 +2,7 @@ REM zlib
 git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/3rdparty/zlib
 
 REM libpng
-git clone --depth 1 --single-branch --branch v1.6.34  git://git.code.sf.net/p/libpng/code.git c:/3rdparty/libpng
+git clone --depth 1 --single-branch --branch v1.6.36  git://git.code.sf.net/p/libpng/code.git c:/3rdparty/libpng
 
 REM libjpeg
 curl -O http://www.ijg.org/files/jpegsr9c.zip
