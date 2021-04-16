@@ -120,7 +120,7 @@ http://sourceforge.net/projects/giflib/
 cURL
 ----
 
-Latest version tested: 7.60.0
+Latest version tested: 7.76.1
 
 Sources for cURL can be downloaded from:
 

@@ -25,6 +25,6 @@ REM giflib
 git clone --depth 1 --single-branch --branch 5.2.1 https://git.code.sf.net/p/giflib/code.git c:/3rdparty/giflib
 
 REM curl
-curl -O https://curl.haxx.se/download/curl-7.60.0.zip
-7z x curl-7.60.0.zip -oc:\3rdparty\
-move c:\3rdparty\curl-7.60.0 c:\3rdparty\curl
+curl -O https://curl.se/download/curl-7.76.1.zip
+7z x curl-7.76.1.zip -oc:\3rdparty\
+move c:\3rdparty\curl-7.76.1 c:\3rdparty\curl
