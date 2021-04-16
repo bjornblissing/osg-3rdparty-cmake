@@ -12,30 +12,20 @@ PROJECT(freetype VERSION "${FREETYPE_VERSION_MAJOR}.${FREETYPE_VERSION_MINOR}.${
 # locations on all platforms.
 INCLUDE(GNUInstallDirs)
 
-
-IF(MSVC OR MINGW)
-  SET(FTDEBUG "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c")
-ELSE()
-  SET(FTDEBUG "${FREETYPE_SOURCE_DIR}/src/base/ftdebug.c")
-ENDIF()
-
 SET(PUBLIC_FT2BUILD_H "${FREETYPE_SOURCE_DIR}/include/ft2build.h")
 
 SET(FREETYPE_BASE_SRCS
-  ${FTDEBUG}
   ${FREETYPE_SOURCE_DIR}/src/autofit/autofit.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftbase.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftbbox.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftbdf.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftbitmap.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftcid.c
-  ${FREETYPE_SOURCE_DIR}/src/base/ftfntfmt.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftfstype.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftgasp.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftglyph.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftgxval.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftinit.c
-  ${FREETYPE_SOURCE_DIR}/src/base/ftlcdfil.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftmm.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftotval.c
   ${FREETYPE_SOURCE_DIR}/src/base/ftpatent.c
@@ -73,72 +63,20 @@ SET(FREETYPE_PUBLIC_CONFIG_HEADERS
   ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftoption.h
   ${FREETYPE_SOURCE_DIR}/include/freetype/config/ftstdlib.h
   )
+  
+IF(MSVC OR MINGW)
+  enable_language(RC)
+  list(APPEND FREETYPE_BASE_SRCS 
+  "${FREETYPE_SOURCE_DIR}/builds/windows/ftdebug.c" 
+  "${FREETYPE_SOURCE_DIR}/src/base/ftver.rc")
+ELSE()
+  list(APPEND FREETYPE_BASE_SRCS "${FREETYPE_SOURCE_DIR}/src/base/ftdebug.c")
+ENDIF()
 
-SET(FREETYPE_PUBLIC_HEADERS
-  ${FREETYPE_SOURCE_DIR}/include/freetype/freetype.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftadvanc.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftbbox.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftbdf.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftbitmap.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftbzip2.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftcache.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftchapters.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftcid.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/fterrdef.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/fterrors.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftfntfmt.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftgasp.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftglyph.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftgxval.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftgzip.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftimage.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftincrem.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftlcdfil.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftlist.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftlzw.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftmac.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftmm.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftmodapi.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftmoderr.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftotval.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftoutln.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftpfr.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftrender.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftsizes.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftsnames.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftstroke.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftsynth.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftsystem.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/fttrigon.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/fttypes.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ftwinfnt.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/t1tables.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/ttnameid.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/tttables.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/tttags.h
-  )
+file(GLOB FREETYPE_PUBLIC_HEADERS "${FREETYPE_SOURCE_DIR}/include/freetype/*.h")
+file(GLOB FREETYPE_PUBLIC_CONFIG_HEADERS "${FREETYPE_SOURCE_DIR}/include/freetype/config/*.h")
+file(GLOB FREETYPE_PRIVATE_HEADERS "${FREETYPE_SOURCE_DIR}/include/freetype/internal/*.h")
 
-SET(FREETYPE_PRIVATE_HEADERS 
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/autohint.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftcalc.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftdebug.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftgloadr.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/fthash.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftmemory.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftobjs.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftpic.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftrfork.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftserv.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftstream.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/fttrace.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/ftvalid.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/internal.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/psaux.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/pshints.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/sfnt.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/t1types.h
-  ${FREETYPE_SOURCE_DIR}/include/freetype/internal/tttypes.h
-  )
 
 IF(MSVC)
   LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
@@ -197,6 +135,9 @@ TARGET_COMPILE_OPTIONS(freetype
   "$<$<CONFIG:RELEASE>:${PRIVATE_RELEASE_OPTIONS}>"
   )
   
+set_target_properties(
+  freetype PROPERTIES
+    C_VISIBILITY_PRESET hidden)
 
 
 # INSTALL

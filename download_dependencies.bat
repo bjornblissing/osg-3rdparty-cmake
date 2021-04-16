@@ -13,7 +13,7 @@ REM libtiff
 git clone --depth 1 --single-branch --branch v4.2.0 https://gitlab.com/libtiff/libtiff.git c:/3rdparty/tiff
 
 REM freetype
-git clone --depth 1 --single-branch --branch VER-2-9-1 git://git.sv.nongnu.org/freetype/freetype2.git c:/3rdparty/freetype
+git clone --depth 1 --single-branch --branch VER-2-10-4 git://git.sv.nongnu.org/freetype/freetype2.git c:/3rdparty/freetype
 
 REM glut
 git clone https://github.com/markkilgard/glut.git c:/3rdparty/glut

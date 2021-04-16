@@ -92,7 +92,7 @@ https://gitlab.com/libtiff/libtiff
 
 FreeType
 --------
-Latest version tested: 2.9.1
+Latest version tested: 2.10.4
 
 Sources for FreeType can be downloaded from:
 
