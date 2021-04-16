@@ -41,7 +41,7 @@ SET(dirname "${TOOLSET}-${BITS}")
 
 # Set directories if not set explicitly
 IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/3rdParty/${dirname}" CACHE "Force change of path" PATH FORCE)
+  SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/3rdParty/${dirname}" CACHE "Force change of path" STRING FORCE)
 ENDIF()
 
 SET(ZLIB_SOURCE_DIR CACHE PATH "Path where to find ZLIB source")
