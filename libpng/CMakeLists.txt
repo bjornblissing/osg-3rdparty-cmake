@@ -9,20 +9,27 @@ PROJECT(libpng VERSION ${PNG_FULL_VERSION} LANGUAGES C)
 # locations on all platforms.
 INCLUDE(GNUInstallDirs)
 
-IF(NOT WIN32)
-  FIND_LIBRARY(M_LIBRARY
-    NAMES m
-    PATHS /usr/lib /usr/local/lib
-  )
-  IF(NOT M_LIBRARY)
-    MESSAGE(STATUS
-      "math library 'libm' not found - floating point support disabled")
-  ENDIF()
+if(UNIX AND NOT APPLE AND NOT BEOS AND NOT HAIKU)
+  find_library(M_LIBRARY m)
 else()
-  # not needed on windows
-  SET(M_LIBRARY "")
-ENDIF()
+  # libm is not needed and/or not available
+  set(M_LIBRARY "")
+endif()
 
+# set definitions and sources for intel
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^i?86" OR
+   CMAKE_SYSTEM_PROCESSOR MATCHES "^x86_64*" OR 
+   CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64")
+  set(LIBPNG_INTEL_SSE true CACHE BOOL "INTEL_SSE optimizations")
+  if(LIBPNG_INTEL_SSE)
+    set(libpng_intel_sources
+      ${LIBPNG_SOURCE_DIR}/intel/intel_init.c
+      ${LIBPNG_SOURCE_DIR}/intel/filter_sse2_intrinsics.c)
+      LIST(APPEND PRIVATE_DEFINITIONS -DPNG_INTEL_SSE_OPT=1)
+  else()
+    LIST(APPEND PRIVATE_DEFINITIONS -DPNG_INTEL_SSE_OPT=0)
+  endif()
+endif()
 
 # to distinguish between debug and release lib
 SET(CMAKE_DEBUG_POSTFIX "d")
@@ -42,9 +49,9 @@ SET(LIBPNG_PUBLIC_HEADERS
   ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h
 )
 SET(LIBPNG_SOURCES
+  ${LIBPNG_SOURCE_DIR}/pngpriv.h
   ${LIBPNG_SOURCE_DIR}/pngdebug.h
   ${LIBPNG_SOURCE_DIR}/pnginfo.h
-  ${LIBPNG_SOURCE_DIR}/pngpriv.h
   ${LIBPNG_SOURCE_DIR}/pngstruct.h
   ${LIBPNG_SOURCE_DIR}/png.c
   ${LIBPNG_SOURCE_DIR}/pngerror.c
@@ -61,6 +68,7 @@ SET(LIBPNG_SOURCES
   ${LIBPNG_SOURCE_DIR}/pngwrite.c
   ${LIBPNG_SOURCE_DIR}/pngwtran.c
   ${LIBPNG_SOURCE_DIR}/pngwutil.c
+  ${libpng_intel_sources}
 )
 
 IF(NOT MINGW)
@@ -73,7 +81,7 @@ ENDIF()
 
 IF(MSVC)
   LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
-  LIST(APPEND PRIVATE_DEFINITIONS -DPNG_CONFIGURE_LIBPNG)
+  # LIST(APPEND PRIVATE_DEFINITIONS -DPNG_CONFIGURE_LIBPNG)
   LIST(APPEND PRIVATE_DEFINITIONS -DPNG_DEBUG)
   LIST(APPEND PRIVATE_DEFINITIONS -DPNG_BUILD_DLL)
 ENDIF(MSVC)
