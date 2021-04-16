@@ -83,7 +83,7 @@ http://www.ijg.org/
 
 libtiff
 -------
-Latest version tested: 4.0.10
+Latest version tested: 4.2.0
 
 Sources for libtiff can be downloaded from:
 

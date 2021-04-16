@@ -10,7 +10,7 @@ curl -O http://www.ijg.org/files/jpegsr9d.zip
 move c:\3rdparty\jpeg-9d c:\3rdparty\libjpeg
 
 REM libtiff
-git clone --depth 1 --single-branch --branch v4.0.10 https://gitlab.com/libtiff/libtiff.git c:/3rdparty/tiff
+git clone --depth 1 --single-branch --branch v4.2.0 https://gitlab.com/libtiff/libtiff.git c:/3rdparty/tiff
 
 REM freetype
 git clone --depth 1 --single-branch --branch VER-2-9-1 git://git.sv.nongnu.org/freetype/freetype2.git c:/3rdparty/freetype
