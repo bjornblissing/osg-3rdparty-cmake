@@ -49,7 +49,6 @@ SET(LIBTIFF_SOURCE_DIR CACHE PATH "Path where to find LIBTIFF source")
 SET(FREETYPE_SOURCE_DIR CACHE PATH "Path where to find FREETYPE source")
 SET(GLUT_SOURCE_DIR CACHE PATH "Path where to find GLUT source")
 SET(GIFLIB_SOURCE_DIR CACHE PATH "Path where to find GIFLIB source")
-SET(MINIZIP_SOURCE_DIR CACHE PATH "Path where to find MINIZIP source")
 SET(CURL_SOURCE_DIR CACHE PATH "Path where to find cURL source")
 
 # Check dependencies for LIBPNG
@@ -104,10 +103,6 @@ ENDIF()
 
 IF (GIFLIB_SOURCE_DIR)
   ADD_SUBDIRECTORY(giflib)
-ENDIF()
-
-IF (MINIZIP_SOURCE_DIR)
-  ADD_SUBDIRECTORY(minizip)
 ENDIF()
 
 IF (CURL_SOURCE_DIR)

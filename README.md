@@ -117,16 +117,6 @@ Sources for GIFLIB can be downloaded from:
 http://sourceforge.net/projects/giflib/
 
 
-MINIZIP
--------
-
-Latest version tested: nmoinvaz/minizip@dac37702b3fab4068ac9a7c4a992df7f0e4f14df
-
-Sources for MINIZIP can be downloaded from:
-
-http://github.com/nmoinvaz/minizip
-
-
 cURL
 ----
 

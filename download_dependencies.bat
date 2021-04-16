@@ -24,12 +24,6 @@ cd %APPVEYOR_BUILD_FOLDER%
 REM giflib
 git clone --depth 1 --single-branch --branch 5.1.4 https://git.code.sf.net/p/giflib/code.git c:/3rdparty/giflib
 
-REM minizip
-git clone https://github.com/nmoinvaz/minizip.git c:/3rdparty/minizip
-cd c:/3rdparty/minizip
-git reset --hard dac37702b3fab4068ac9a7c4a992df7f0e4f14df
-cd %APPVEYOR_BUILD_FOLDER%
-
 REM curl
 curl -O https://curl.haxx.se/download/curl-7.60.0.zip
 7z x curl-7.60.0.zip -oc:\3rdparty\
