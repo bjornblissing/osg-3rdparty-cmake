@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)
 
-FILE(READ ${GIFLIB_SOURCE_DIR}/lib/gif_lib.h _gif_lib_h_contents)
+FILE(READ ${GIFLIB_SOURCE_DIR}/gif_lib.h _gif_lib_h_contents)
 STRING(REGEX REPLACE ".*#define[ \t]+GIFLIB_MAJOR[ \t]+([0-9]+).*" "\\1" GIFLIB_MAJOR_VERSION ${_gif_lib_h_contents})
 STRING(REGEX REPLACE ".*#define[ \t]+GIFLIB_MINOR[ \t]+([0-9]+).*" "\\1" GIFLIB_MINOR_VERSION ${_gif_lib_h_contents})
 STRING(REGEX REPLACE ".*#define[ \t]+GIFLIB_RELEASE[ \t]+([0-9]+).*" "\\1" GIFLIB_RELEASE_VERSION ${_gif_lib_h_contents})
@@ -14,23 +14,23 @@ INCLUDE(GNUInstallDirs)
 
 
 SET(GIFLIB_PUBLIC_HEADERS
-  ${GIFLIB_SOURCE_DIR}/lib/gif_lib.h
+  ${GIFLIB_SOURCE_DIR}/gif_lib.h
 )
 
 SET(GIFLIB_PRIVATE_HEADERS
-  ${GIFLIB_SOURCE_DIR}/lib/gif_lib_private.h
-  ${GIFLIB_SOURCE_DIR}/lib/gif_hash.h
+  ${GIFLIB_SOURCE_DIR}/gif_lib_private.h
+  ${GIFLIB_SOURCE_DIR}/gif_hash.h
 )
 
 SET(GIFLIB_SRCS
-  ${GIFLIB_SOURCE_DIR}/lib/dgif_lib.c
-  ${GIFLIB_SOURCE_DIR}/lib/egif_lib.c
-  ${GIFLIB_SOURCE_DIR}/lib/gif_err.c
-  ${GIFLIB_SOURCE_DIR}/lib/gif_font.c
-  ${GIFLIB_SOURCE_DIR}/lib/gif_hash.c
-  ${GIFLIB_SOURCE_DIR}/lib/gifalloc.c
-  ${GIFLIB_SOURCE_DIR}/lib/quantize.c
-  ${GIFLIB_SOURCE_DIR}/lib/openbsd-reallocarray.c
+  ${GIFLIB_SOURCE_DIR}/dgif_lib.c
+  ${GIFLIB_SOURCE_DIR}/egif_lib.c
+  ${GIFLIB_SOURCE_DIR}/gif_err.c
+  ${GIFLIB_SOURCE_DIR}/gif_font.c
+  ${GIFLIB_SOURCE_DIR}/gif_hash.c
+  ${GIFLIB_SOURCE_DIR}/gifalloc.c
+  ${GIFLIB_SOURCE_DIR}/quantize.c
+  ${GIFLIB_SOURCE_DIR}/openbsd-reallocarray.c
   )
 
 IF(MSVC)

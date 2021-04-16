@@ -22,7 +22,7 @@ git reset --hard 8cd96cb440f1f2fac3a154227937be39d06efa53
 cd %APPVEYOR_BUILD_FOLDER%
 
 REM giflib
-git clone --depth 1 --single-branch --branch 5.1.4 https://git.code.sf.net/p/giflib/code.git c:/3rdparty/giflib
+git clone --depth 1 --single-branch --branch 5.2.1 https://git.code.sf.net/p/giflib/code.git c:/3rdparty/giflib
 
 REM curl
 curl -O https://curl.haxx.se/download/curl-7.60.0.zip
