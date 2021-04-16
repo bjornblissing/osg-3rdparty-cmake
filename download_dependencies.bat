@@ -5,9 +5,9 @@ REM libpng
 git clone --depth 1 --single-branch --branch v1.6.37  git://git.code.sf.net/p/libpng/code.git c:/3rdparty/libpng
 
 REM libjpeg
-curl -O http://www.ijg.org/files/jpegsr9c.zip
-7z x jpegsr9c.zip -oc:\3rdparty\
-move c:\3rdparty\jpeg-9c c:\3rdparty\libjpeg
+curl -O http://www.ijg.org/files/jpegsr9d.zip
+7z x jpegsr9d.zip -oc:\3rdparty\
+move c:\3rdparty\jpeg-9d c:\3rdparty\libjpeg
 
 REM libtiff
 git clone --depth 1 --single-branch --branch v4.0.10 https://gitlab.com/libtiff/libtiff.git c:/3rdparty/tiff
