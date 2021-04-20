@@ -1,112 +1,121 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-PROJECT(OpenscenegraphThirdParty)
+project(OpenscenegraphThirdParty)
 
 # Only enable release and debug builds
-IF(CMAKE_CONFIGURATION_TYPES)
-  SET(CMAKE_CONFIGURATION_TYPES Debug Release)
-  SET(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING
-    "Reset the configurations to what we need"
-    FORCE)
-ENDIF()
+if(CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_CONFIGURATION_TYPES Debug Release)
+  set(CMAKE_CONFIGURATION_TYPES
+      "${CMAKE_CONFIGURATION_TYPES}"
+      CACHE STRING "Reset the configurations to what we need" FORCE)
+endif()
 
 # Generate folder name for install
-IF(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
-  SET(BITS "x64")
-ELSEIF (${CMAKE_SIZEOF_VOID_P} EQUAL 4)
-  SET(BITS "x86")
-ENDIF()
+if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+  set(BITS "x64")
+elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+  set(BITS "x86")
+endif()
 
-IF (MSVC)
-  IF (${MSVC_VERSION} EQUAL 1600)
-    SET(TOOLSET "v100") # Visual Studio 2010
-  ELSEIF (${MSVC_VERSION} EQUAL 1700)
-    SET(TOOLSET "v110") # Visual Studio 2012
-  ELSEIF (${MSVC_VERSION} EQUAL 1800)
-    SET(TOOLSET "v120") # Visual Studio 2013
-  ELSEIF (${MSVC_VERSION} EQUAL 1900)
-    SET(TOOLSET "v140") # Visual Studio 2015
-  ELSEIF (${MSVC_VERSION} GREATER 1910 AND ${MSVC_VERSION} LESS 1920)
-    SET(TOOLSET "v141") # Visual Studio 2017
-  ELSEIF (${MSVC_VERSION} GREATER 1919)
-    SET(TOOLSET "v141") # Visual Studio 2019
-  ENDIF()
-ENDIF()
+if(MSVC)
+  if(${MSVC_VERSION} EQUAL 1600)
+    set(TOOLSET "v100") # Visual Studio 2010
+  elseif(${MSVC_VERSION} EQUAL 1700)
+    set(TOOLSET "v110") # Visual Studio 2012
+  elseif(${MSVC_VERSION} EQUAL 1800)
+    set(TOOLSET "v120") # Visual Studio 2013
+  elseif(${MSVC_VERSION} EQUAL 1900)
+    set(TOOLSET "v140") # Visual Studio 2015
+  elseif(${MSVC_VERSION} GREATER 1910 AND ${MSVC_VERSION} LESS 1920)
+    set(TOOLSET "v141") # Visual Studio 2017
+  elseif(${MSVC_VERSION} GREATER 1919)
+    set(TOOLSET "v141") # Visual Studio 2019
+  endif()
+endif()
 
-IF(MINGW)
-  SET(TOOLSET "mingw")
-ENDIF()
+if(MINGW)
+  set(TOOLSET "mingw")
+endif()
 
-SET(dirname "${TOOLSET}-${BITS}")
+set(dirname "${TOOLSET}-${BITS}")
 
 # Set directories if not set explicitly
-IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  SET(CMAKE_INSTALL_PREFIX "${PROJECT_BINARY_DIR}/3rdParty/${dirname}" CACHE "Force change of path" STRING FORCE)
-ENDIF()
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX
+      "${PROJECT_BINARY_DIR}/3rdParty/${dirname}"
+      CACHE "Force change of path" STRING FORCE)
+endif()
 
-SET(ZLIB_SOURCE_DIR CACHE PATH "Path where to find ZLIB source")
-SET(LIBPNG_SOURCE_DIR CACHE PATH "Path where to find LIBPNG source")
-SET(LIBJPEG_SOURCE_DIR CACHE PATH "Path where to find LIBJPEG source")
-SET(LIBTIFF_SOURCE_DIR CACHE PATH "Path where to find LIBTIFF source")
-SET(FREETYPE_SOURCE_DIR CACHE PATH "Path where to find FREETYPE source")
-SET(GLUT_SOURCE_DIR CACHE PATH "Path where to find GLUT source")
-SET(GIFLIB_SOURCE_DIR CACHE PATH "Path where to find GIFLIB source")
-SET(CURL_SOURCE_DIR CACHE PATH "Path where to find cURL source")
+set(ZLIB_SOURCE_DIR CACHE PATH "Path where to find ZLIB source")
+set(LIBPNG_SOURCE_DIR CACHE PATH "Path where to find LIBPNG source")
+set(LIBJPEG_SOURCE_DIR CACHE PATH "Path where to find LIBJPEG source")
+set(LIBTIFF_SOURCE_DIR CACHE PATH "Path where to find LIBTIFF source")
+set(FREETYPE_SOURCE_DIR CACHE PATH "Path where to find FREETYPE source")
+set(GLUT_SOURCE_DIR CACHE PATH "Path where to find GLUT source")
+set(GIFLIB_SOURCE_DIR CACHE PATH "Path where to find GIFLIB source")
+set(CURL_SOURCE_DIR CACHE PATH "Path where to find cURL source")
 
 # Check dependencies for LIBPNG
-IF (LIBPNG_SOURCE_DIR)
-  IF(NOT ZLIB_SOURCE_DIR)
-    MESSAGE(FATAL_ERROR "Error: LIBPNG depends on ZLIB and no ZLIB path has been set")
-  ENDIF()
-ENDIF ()
+if(LIBPNG_SOURCE_DIR)
+  if(NOT ZLIB_SOURCE_DIR)
+    message(
+      FATAL_ERROR "Error: LIBPNG depends on ZLIB and no ZLIB path has been set")
+  endif()
+endif()
 
 # Check dependencies for LIBTIFF
-IF(LIBTIFF_SOURCE_DIR)
-  IF(NOT ZLIB_SOURCE_DIR)
-    MESSAGE(FATAL_ERROR "Error: LIBTIFF depends on ZLIB and no ZLIB path has been set")
-  ENDIF()
+if(LIBTIFF_SOURCE_DIR)
+  if(NOT ZLIB_SOURCE_DIR)
+    message(
+      FATAL_ERROR "Error: LIBTIFF depends on ZLIB and no ZLIB path has been set"
+    )
+  endif()
 
-  IF(NOT LIBJPEG_SOURCE_DIR)
-    MESSAGE(FATAL_ERROR "Error: LIBTIFF depends on LIBJPEG and no LIBJPEG path has been set")
-  ENDIF()
-ENDIF()
+  if(NOT LIBJPEG_SOURCE_DIR)
+    message(
+      FATAL_ERROR
+        "Error: LIBTIFF depends on LIBJPEG and no LIBJPEG path has been set")
+  endif()
+endif()
 
 # Check dependencies for MINIZIP
-IF (MINIZIP_SOURCE_DIR)
-  IF(NOT ZLIB_SOURCE_DIR)
-    MESSAGE(FATAL_ERROR "Error: MINIZIP depends on ZLIB and no ZLIB path has been set")
-  ENDIF()
-ENDIF ()
+if(MINIZIP_SOURCE_DIR)
+  if(NOT ZLIB_SOURCE_DIR)
+    message(
+      FATAL_ERROR "Error: MINIZIP depends on ZLIB and no ZLIB path has been set"
+    )
+  endif()
+endif()
 
 # Add libraries
-IF (ZLIB_SOURCE_DIR)
-  ADD_SUBDIRECTORY(zlib)
-ENDIF()
+if(ZLIB_SOURCE_DIR)
+  add_subdirectory(zlib)
+endif()
 
-IF (LIBPNG_SOURCE_DIR)
-  ADD_SUBDIRECTORY(libpng)
-ENDIF()
+if(LIBPNG_SOURCE_DIR)
+  add_subdirectory(libpng)
+endif()
 
-IF (LIBJPEG_SOURCE_DIR)
-  ADD_SUBDIRECTORY(libjpeg)
-ENDIF()
+if(LIBJPEG_SOURCE_DIR)
+  add_subdirectory(libjpeg)
+endif()
 
-IF (LIBTIFF_SOURCE_DIR)
-  ADD_SUBDIRECTORY(libtiff)
-ENDIF()
+if(LIBTIFF_SOURCE_DIR)
+  add_subdirectory(libtiff)
+endif()
 
-IF (FREETYPE_SOURCE_DIR)
-  ADD_SUBDIRECTORY(freetype)
-ENDIF()
+if(FREETYPE_SOURCE_DIR)
+  add_subdirectory(freetype)
+endif()
 
-IF (GLUT_SOURCE_DIR)
-  ADD_SUBDIRECTORY(glut)
-ENDIF()
+if(GLUT_SOURCE_DIR)
+  add_subdirectory(glut)
+endif()
 
-IF (GIFLIB_SOURCE_DIR)
-  ADD_SUBDIRECTORY(giflib)
-ENDIF()
+if(GIFLIB_SOURCE_DIR)
+  add_subdirectory(giflib)
+endif()
 
-IF (CURL_SOURCE_DIR)
-  ADD_SUBDIRECTORY(curl)
-ENDIF()
+if(CURL_SOURCE_DIR)
+  add_subdirectory(curl)
+endif()

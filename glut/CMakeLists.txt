@@ -1,143 +1,141 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-PROJECT(glut LANGUAGES C)
+project(glut LANGUAGES C)
 
-# Use GNUInstallDirs to install libraries into correct
-# locations on all platforms.
-INCLUDE(GNUInstallDirs)
+# Use GNUInstallDirs to install libraries into correct locations on all
+# platforms.
+include(GNUInstallDirs)
 
-OPTION(GLUT_BUILD_STATIC "Build static version of the GLUT library." OFF)
-IF (${GLUT_BUILD_STATIC})
-  MESSAGE(STATUS "WARNING: Static version of GLUT library will require\n changes of osgviewerGLUT projects runtime library\n from /MD to /MT to be able to link correctly.\n")
-ENDIF()
+option(GLUT_BUILD_STATIC "Build static version of the GLUT library." OFF)
+if(${GLUT_BUILD_STATIC})
+  message(
+    STATUS
+      "WARNING: Static version of GLUT library will require\n changes of osgviewerGLUT projects runtime library\n from /MD to /MT to be able to link correctly.\n"
+  )
+endif()
 
-MARK_AS_ADVANCED(GLUT_BUILD_STATIC)
+mark_as_advanced(GLUT_BUILD_STATIC)
 
-SET(GLUT_PUBLIC_HEADERS
-  ${GLUT_SOURCE_DIR}/include/GL/glut.h
-)
+set(GLUT_PUBLIC_HEADERS ${GLUT_SOURCE_DIR}/include/GL/glut.h)
 
-SET(GLUT_SRCS
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_8x13.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_9x15.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_bitmap.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_bwidth.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_cindex.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_cmap.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_cursor.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_dials.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_dstr.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_event.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_ext.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_fbc.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_fullscrn.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_gamemode.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_get.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_glxext.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_hel10.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_hel12.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_hel18.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_init.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_input.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_joy.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_key.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_keyctrl.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_keyup.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_mesa.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_modifier.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_mroman.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_overlay.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_roman.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_shapes.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_space.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_stroke.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_swap.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_swidth.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_tablet.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_teapot.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_tr10.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_tr24.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_util.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_vidresize.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_warp.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_wglext.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_win.c
-  ${GLUT_SOURCE_DIR}/lib/glut/glut_winmisc.c
-  ${GLUT_SOURCE_DIR}/lib/glut/win32_glx.c
-  ${GLUT_SOURCE_DIR}/lib/glut/win32_menu.c
-  ${GLUT_SOURCE_DIR}/lib/glut/win32_util.c
-  ${GLUT_SOURCE_DIR}/lib/glut/win32_winproc.c
-  ${GLUT_SOURCE_DIR}/lib/glut/win32_x11.c
-)
+set(GLUT_SRCS
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_8x13.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_9x15.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_bitmap.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_bwidth.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_cindex.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_cmap.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_cursor.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_dials.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_dstr.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_event.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_ext.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_fbc.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_fullscrn.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_gamemode.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_get.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_glxext.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_hel10.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_hel12.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_hel18.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_init.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_input.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_joy.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_key.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_keyctrl.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_keyup.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_mesa.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_modifier.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_mroman.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_overlay.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_roman.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_shapes.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_space.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_stroke.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_swap.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_swidth.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_tablet.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_teapot.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_tr10.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_tr24.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_util.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_vidresize.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_warp.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_wglext.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_win.c
+    ${GLUT_SOURCE_DIR}/lib/glut/glut_winmisc.c
+    ${GLUT_SOURCE_DIR}/lib/glut/win32_glx.c
+    ${GLUT_SOURCE_DIR}/lib/glut/win32_menu.c
+    ${GLUT_SOURCE_DIR}/lib/glut/win32_util.c
+    ${GLUT_SOURCE_DIR}/lib/glut/win32_winproc.c
+    ${GLUT_SOURCE_DIR}/lib/glut/win32_x11.c)
 
-SET(GLUT_EXPORT_DEFINTIONS
-  ${GLUT_SOURCE_DIR}/lib/glut/glut.def
-)
+set(GLUT_EXPORT_DEFINTIONS ${GLUT_SOURCE_DIR}/lib/glut/glut.def)
 
+if(MSVC)
+  list(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings
+                                                             # for unsecure CRT
+                                                             # functions
+  if(${GLUT_BUILD_STATIC})
+    list(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MTd>
+         $<$<CONFIG:Release>:/MT>) # Build static runtime library
+  else()
+    list(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MDd>
+         $<$<CONFIG:Release>:/MD>) # Build shared runtime library
+  endif()
 
-IF(MSVC)
-  LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
-  IF (${GLUT_BUILD_STATIC})
-    LIST(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MTd> $<$<CONFIG:Release>:/MT>) # Build static runtime library
-  ELSE()
-    LIST(APPEND PRIVATE_OPTIONS $<$<CONFIG:Debug>:/MDd> $<$<CONFIG:Release>:/MD>) # Build shared runtime library
-  ENDIF()
-  
   # Supress warnings
-  LIST(APPEND PRIVATE_OPTIONS /wd4133) # type' : incompatible types - from 'type1' to 'type2'
-  LIST(APPEND PRIVATE_OPTIONS /wd4554) # operator' : check operator precedence for possible error; use parentheses to clarify precedence
-  LIST(APPEND PRIVATE_OPTIONS /wd4996) # The compiler encountered a deprecated declaration.
-  LIST(APPEND PRIVATE_OPTIONS /wd4715) # function' : not all control paths return a value
-  
-  SET(CMAKE_DEBUG_POSTFIX "d")
-ENDIF(MSVC)
+  list(APPEND PRIVATE_OPTIONS /wd4133) # type' : incompatible types - from
+                                       # 'type1' to 'type2'
+  list(APPEND PRIVATE_OPTIONS /wd4554) # operator' : check operator precedence
+                                       # for possible error; use parentheses to
+                                       # clarify precedence
+  list(APPEND PRIVATE_OPTIONS /wd4996) # The compiler encountered a deprecated
+                                       # declaration.
+  list(APPEND PRIVATE_OPTIONS /wd4715) # function' : not all control paths
+                                       # return a value
 
+  set(CMAKE_DEBUG_POSTFIX "d")
+endif(MSVC)
 
-IF(MINGW)
-  LIST(APPEND PRIVATE_DEFINITIONS "-w") # 
-ENDIF(MINGW)
+if(MINGW)
+  list(APPEND PRIVATE_DEFINITIONS "-w") #
+endif(MINGW)
 
-IF (${GLUT_BUILD_STATIC})
-  ADD_LIBRARY(glut32 STATIC ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS})
-ELSE()
-  ADD_LIBRARY(glut32 SHARED ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS} ${GLUT_EXPORT_DEFINTIONS})
-ENDIF()
+if(${GLUT_BUILD_STATIC})
+  add_library(glut32 STATIC ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS})
+else()
+  add_library(glut32 SHARED ${GLUT_SRCS} ${GLUT_PUBLIC_HEADERS}
+                            ${GLUT_EXPORT_DEFINTIONS})
+endif()
 
 # Dependent include files
-TARGET_INCLUDE_DIRECTORIES(glut32 PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}> 
-  $<BUILD_INTERFACE:${GLUT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-  )
+target_include_directories(
+  glut32
+  PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+         $<BUILD_INTERFACE:${GLUT_SOURCE_DIR}/include>
+         $<INSTALL_INTERFACE:include>)
 
-TARGET_COMPILE_DEFINITIONS(glut32
-  PRIVATE ${PRIVATE_DEFINITIONS}
-  )
+target_compile_definitions(glut32 PRIVATE ${PRIVATE_DEFINITIONS})
 
-  
-TARGET_COMPILE_OPTIONS(glut32 
-  PRIVATE ${PRIVATE_OPTIONS}
-  )
+target_compile_options(glut32 PRIVATE ${PRIVATE_OPTIONS})
 
-IF(MSVC)
-  IF (${GLUT_BUILD_STATIC})
-    TARGET_LINK_LIBRARIES(glut32 winmm.lib)
-  ELSE()
-    TARGET_LINK_LIBRARIES(glut32 winmm.lib OpenGL32.lib GlU32.lib)
-  ENDIF()
-ENDIF(MSVC)
-
+if(MSVC)
+  if(${GLUT_BUILD_STATIC})
+    target_link_libraries(glut32 winmm.lib)
+  else()
+    target_link_libraries(glut32 winmm.lib OpenGL32.lib GlU32.lib)
+  endif()
+endif(MSVC)
 
 # INSTALL
-INSTALL(TARGETS glut32 EXPORT glut32_export
+install(
+  TARGETS glut32
+  EXPORT glut32_export
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-  )
+  INCLUDES
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-INSTALL(FILES 
-  ${GLUT_PUBLIC_HEADERS} 
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL
-  )
-
+install(FILES ${GLUT_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/GL)
