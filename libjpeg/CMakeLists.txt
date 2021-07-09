@@ -1,153 +1,148 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 # parse the full version number from jversion.h and include in JPEG_FULL_VERSION
-FILE(READ ${LIBJPEG_SOURCE_DIR}/jversion.h _jversion_h_contents)
+file(READ ${LIBJPEG_SOURCE_DIR}/jversion.h _jversion_h_contents)
 
-STRING(REGEX REPLACE ".*#define[ \t]+JVERSION[ \t]+\"([0-9]+[a-z]+).+\".*" "\\1" JPEG_FULL_VERSION ${_jversion_h_contents})
-STRING(REGEX REPLACE "([0-9]+)[a-z]+" "\\1" JPEG_MAJOR_VERSION ${JPEG_FULL_VERSION})
-STRING(REGEX REPLACE "[0-9]+([a-z]+)" "\\1" JPEG_MINOR_VERSION ${JPEG_FULL_VERSION})
+string(REGEX REPLACE ".*#define[ \t]+JVERSION[ \t]+\"([0-9]+[a-z]+).+\".*"
+                     "\\1" JPEG_FULL_VERSION ${_jversion_h_contents})
+string(REGEX REPLACE "([0-9]+)[a-z]+" "\\1" JPEG_MAJOR_VERSION
+                     ${JPEG_FULL_VERSION})
+string(REGEX REPLACE "[0-9]+([a-z]+)" "\\1" JPEG_MINOR_VERSION
+                     ${JPEG_FULL_VERSION})
 
 # Convert minor version letter to number
-IF ("${JPEG_MINOR_VERSION}" MATCHES [aA])
-  SET(JPEG_MINOR_VERSION 0)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [bB])
-  SET(JPEG_MINOR_VERSION 1)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [cC])
-  SET(JPEG_MINOR_VERSION 2)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [dD])
-  SET(JPEG_MINOR_VERSION 3)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [eE])
-  SET(JPEG_MINOR_VERSION 4)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [fF])
-  SET(JPEG_MINOR_VERSION 5)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [gG])
-  SET(JPEG_MINOR_VERSION 6)
-ELSEIF("${JPEG_MINOR_VERSION}" MATCHES [hH])
-  SET(JPEG_MINOR_VERSION 7)
-ELSE()
-  MESSAGE(FATAL_ERROR "Minor JPEG version exceeds version H")
-ENDIF()
+if("${JPEG_MINOR_VERSION}" MATCHES [aA])
+  set(JPEG_MINOR_VERSION 0)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [bB])
+  set(JPEG_MINOR_VERSION 1)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [cC])
+  set(JPEG_MINOR_VERSION 2)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [dD])
+  set(JPEG_MINOR_VERSION 3)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [eE])
+  set(JPEG_MINOR_VERSION 4)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [fF])
+  set(JPEG_MINOR_VERSION 5)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [gG])
+  set(JPEG_MINOR_VERSION 6)
+elseif("${JPEG_MINOR_VERSION}" MATCHES [hH])
+  set(JPEG_MINOR_VERSION 7)
+else()
+  message(FATAL_ERROR "Minor JPEG version exceeds version H")
+endif()
 
-PROJECT(jpeg VERSION ${JPEG_MAJOR_VERSION}.${JPEG_MINOR_VERSION} LANGUAGES C)
+project(
+  jpeg
+  VERSION ${JPEG_MAJOR_VERSION}.${JPEG_MINOR_VERSION}
+  LANGUAGES C)
 
-# Use GNUInstallDirs to install libraries into correct
-# locations on all platforms.
-INCLUDE(GNUInstallDirs)
+# Use GNUInstallDirs to install libraries into correct locations on all
+# platforms.
+include(GNUInstallDirs)
 
-IF(MSVC)
-  SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
-ENDIF()
+if(MSVC)
+  set(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
+endif()
 
-IF (MINGW)
-  SET(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
-ENDIF()
+if(MINGW)
+  set(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
+endif()
 
-CONFIGURE_FILE(${jconfig} jconfig.h @ONLY)
-CONFIGURE_FILE(${LIBJPEG_SOURCE_DIR}/jerror.h jerror.h COPYONLY)
-CONFIGURE_FILE(${LIBJPEG_SOURCE_DIR}/jmorecfg.h jmorecfg.h COPYONLY)
-CONFIGURE_FILE(${LIBJPEG_SOURCE_DIR}/jpeglib.h jpeglib.h COPYONLY)
+configure_file(${jconfig} jconfig.h @ONLY)
+configure_file(${LIBJPEG_SOURCE_DIR}/jerror.h jerror.h COPYONLY)
+configure_file(${LIBJPEG_SOURCE_DIR}/jmorecfg.h jmorecfg.h COPYONLY)
+configure_file(${LIBJPEG_SOURCE_DIR}/jpeglib.h jpeglib.h COPYONLY)
 
-SET(LIBJPEG_PUBLIC_HEADERS
-  ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h
-  ${CMAKE_CURRENT_BINARY_DIR}/jerror.h
-  ${CMAKE_CURRENT_BINARY_DIR}/jmorecfg.h
-  ${CMAKE_CURRENT_BINARY_DIR}/jpeglib.h
-)
+set(LIBJPEG_PUBLIC_HEADERS
+    ${CMAKE_CURRENT_BINARY_DIR}/jconfig.h ${CMAKE_CURRENT_BINARY_DIR}/jerror.h
+    ${CMAKE_CURRENT_BINARY_DIR}/jmorecfg.h
+    ${CMAKE_CURRENT_BINARY_DIR}/jpeglib.h)
 
-SET(LIBJPEG_PRIVATE_HEADERS
-  ${LIBJPEG_SOURCE_DIR}/jdct.h
-  ${LIBJPEG_SOURCE_DIR}/jinclude.h
-  ${LIBJPEG_SOURCE_DIR}/jmemsys.h
-  ${LIBJPEG_SOURCE_DIR}/jpegint.h
-  ${LIBJPEG_SOURCE_DIR}/jversion.h
-)
+set(LIBJPEG_PRIVATE_HEADERS
+    ${LIBJPEG_SOURCE_DIR}/jdct.h ${LIBJPEG_SOURCE_DIR}/jinclude.h
+    ${LIBJPEG_SOURCE_DIR}/jmemsys.h ${LIBJPEG_SOURCE_DIR}/jpegint.h
+    ${LIBJPEG_SOURCE_DIR}/jversion.h)
 
-SET(LIBJPEG_SRCS
-  ${LIBJPEG_SOURCE_DIR}/jaricom.c
-  ${LIBJPEG_SOURCE_DIR}/jcapimin.c
-  ${LIBJPEG_SOURCE_DIR}/jcapistd.c
-  ${LIBJPEG_SOURCE_DIR}/jcarith.c
-  ${LIBJPEG_SOURCE_DIR}/jccoefct.c
-  ${LIBJPEG_SOURCE_DIR}/jccolor.c
-  ${LIBJPEG_SOURCE_DIR}/jcdctmgr.c
-  ${LIBJPEG_SOURCE_DIR}/jchuff.c
-  ${LIBJPEG_SOURCE_DIR}/jcinit.c
-  ${LIBJPEG_SOURCE_DIR}/jcmainct.c
-  ${LIBJPEG_SOURCE_DIR}/jcmarker.c
-  ${LIBJPEG_SOURCE_DIR}/jcmaster.c
-  ${LIBJPEG_SOURCE_DIR}/jcomapi.c
-  ${LIBJPEG_SOURCE_DIR}/jcparam.c
-  ${LIBJPEG_SOURCE_DIR}/jcprepct.c
-  ${LIBJPEG_SOURCE_DIR}/jcsample.c
-  ${LIBJPEG_SOURCE_DIR}/jctrans.c
-  ${LIBJPEG_SOURCE_DIR}/jdapimin.c
-  ${LIBJPEG_SOURCE_DIR}/jdapistd.c
-  ${LIBJPEG_SOURCE_DIR}/jdarith.c
-  ${LIBJPEG_SOURCE_DIR}/jdatadst.c
-  ${LIBJPEG_SOURCE_DIR}/jdatasrc.c
-  ${LIBJPEG_SOURCE_DIR}/jdcoefct.c
-  ${LIBJPEG_SOURCE_DIR}/jdcolor.c
-  ${LIBJPEG_SOURCE_DIR}/jddctmgr.c
-  ${LIBJPEG_SOURCE_DIR}/jdhuff.c
-  ${LIBJPEG_SOURCE_DIR}/jdinput.c
-  ${LIBJPEG_SOURCE_DIR}/jdmainct.c
-  ${LIBJPEG_SOURCE_DIR}/jdmarker.c
-  ${LIBJPEG_SOURCE_DIR}/jdmaster.c
-  ${LIBJPEG_SOURCE_DIR}/jdmerge.c
-  ${LIBJPEG_SOURCE_DIR}/jdpostct.c
-  ${LIBJPEG_SOURCE_DIR}/jdsample.c
-  ${LIBJPEG_SOURCE_DIR}/jdtrans.c
-  ${LIBJPEG_SOURCE_DIR}/jerror.c
-  ${LIBJPEG_SOURCE_DIR}/jfdctflt.c
-  ${LIBJPEG_SOURCE_DIR}/jfdctfst.c
-  ${LIBJPEG_SOURCE_DIR}/jfdctint.c
-  ${LIBJPEG_SOURCE_DIR}/jidctflt.c
-  ${LIBJPEG_SOURCE_DIR}/jidctfst.c
-  ${LIBJPEG_SOURCE_DIR}/jidctint.c
-  ${LIBJPEG_SOURCE_DIR}/jmemmgr.c
-  ${LIBJPEG_SOURCE_DIR}/jmemnobs.c
-  ${LIBJPEG_SOURCE_DIR}/jquant1.c
-  ${LIBJPEG_SOURCE_DIR}/jquant2.c
-  ${LIBJPEG_SOURCE_DIR}/jutils.c
-)
+set(LIBJPEG_SRCS
+    ${LIBJPEG_SOURCE_DIR}/jaricom.c
+    ${LIBJPEG_SOURCE_DIR}/jcapimin.c
+    ${LIBJPEG_SOURCE_DIR}/jcapistd.c
+    ${LIBJPEG_SOURCE_DIR}/jcarith.c
+    ${LIBJPEG_SOURCE_DIR}/jccoefct.c
+    ${LIBJPEG_SOURCE_DIR}/jccolor.c
+    ${LIBJPEG_SOURCE_DIR}/jcdctmgr.c
+    ${LIBJPEG_SOURCE_DIR}/jchuff.c
+    ${LIBJPEG_SOURCE_DIR}/jcinit.c
+    ${LIBJPEG_SOURCE_DIR}/jcmainct.c
+    ${LIBJPEG_SOURCE_DIR}/jcmarker.c
+    ${LIBJPEG_SOURCE_DIR}/jcmaster.c
+    ${LIBJPEG_SOURCE_DIR}/jcomapi.c
+    ${LIBJPEG_SOURCE_DIR}/jcparam.c
+    ${LIBJPEG_SOURCE_DIR}/jcprepct.c
+    ${LIBJPEG_SOURCE_DIR}/jcsample.c
+    ${LIBJPEG_SOURCE_DIR}/jctrans.c
+    ${LIBJPEG_SOURCE_DIR}/jdapimin.c
+    ${LIBJPEG_SOURCE_DIR}/jdapistd.c
+    ${LIBJPEG_SOURCE_DIR}/jdarith.c
+    ${LIBJPEG_SOURCE_DIR}/jdatadst.c
+    ${LIBJPEG_SOURCE_DIR}/jdatasrc.c
+    ${LIBJPEG_SOURCE_DIR}/jdcoefct.c
+    ${LIBJPEG_SOURCE_DIR}/jdcolor.c
+    ${LIBJPEG_SOURCE_DIR}/jddctmgr.c
+    ${LIBJPEG_SOURCE_DIR}/jdhuff.c
+    ${LIBJPEG_SOURCE_DIR}/jdinput.c
+    ${LIBJPEG_SOURCE_DIR}/jdmainct.c
+    ${LIBJPEG_SOURCE_DIR}/jdmarker.c
+    ${LIBJPEG_SOURCE_DIR}/jdmaster.c
+    ${LIBJPEG_SOURCE_DIR}/jdmerge.c
+    ${LIBJPEG_SOURCE_DIR}/jdpostct.c
+    ${LIBJPEG_SOURCE_DIR}/jdsample.c
+    ${LIBJPEG_SOURCE_DIR}/jdtrans.c
+    ${LIBJPEG_SOURCE_DIR}/jerror.c
+    ${LIBJPEG_SOURCE_DIR}/jfdctflt.c
+    ${LIBJPEG_SOURCE_DIR}/jfdctfst.c
+    ${LIBJPEG_SOURCE_DIR}/jfdctint.c
+    ${LIBJPEG_SOURCE_DIR}/jidctflt.c
+    ${LIBJPEG_SOURCE_DIR}/jidctfst.c
+    ${LIBJPEG_SOURCE_DIR}/jidctint.c
+    ${LIBJPEG_SOURCE_DIR}/jmemmgr.c
+    ${LIBJPEG_SOURCE_DIR}/jmemnobs.c
+    ${LIBJPEG_SOURCE_DIR}/jquant1.c
+    ${LIBJPEG_SOURCE_DIR}/jquant2.c
+    ${LIBJPEG_SOURCE_DIR}/jutils.c)
 
 # Dependent include files
-INCLUDE_DIRECTORIES(${LIBJPEG_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${LIBJPEG_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
-IF(MSVC)
-  LIST(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings for unsecure CRT functions
-  LIST(APPEND PRIVATE_DEFINITIONS -D_LIB)
-  LIST(APPEND PRIVATE_OPTIONS /Gy) # Eliminate Duplicate Strings
-  SET(CMAKE_DEBUG_POSTFIX "d")
-ENDIF(MSVC)
+if(MSVC)
+  list(APPEND PRIVATE_DEFINITIONS -D_CRT_SECURE_NO_WARNINGS) # Disable warnings
+                                                             # for unsecure CRT
+                                                             # functions
+  list(APPEND PRIVATE_DEFINITIONS -D_LIB)
+  list(APPEND PRIVATE_OPTIONS /Gy) # Eliminate Duplicate Strings
+  set(CMAKE_DEBUG_POSTFIX "d")
+endif(MSVC)
 
-ADD_LIBRARY(jpeg STATIC ${LIBJPEG_SRCS} ${LIBJPEG_PRIVATE_HEADERS} ${LIBJPEG_PUBLIC_HEADERS})
+add_library(jpeg STATIC ${LIBJPEG_SRCS} ${LIBJPEG_PRIVATE_HEADERS}
+                        ${LIBJPEG_PUBLIC_HEADERS})
 
 # Dependent include files
-TARGET_INCLUDE_DIRECTORIES(jpeg PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}> 
-  $<INSTALL_INTERFACE:include>
-  )
+target_include_directories(
+  jpeg PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+              $<INSTALL_INTERFACE:include>)
 
-TARGET_COMPILE_DEFINITIONS(jpeg
-  PRIVATE ${PRIVATE_DEFINITIONS}
-  )
-  
-TARGET_COMPILE_OPTIONS(jpeg 
-  PRIVATE ${PRIVATE_OPTIONS}
-  )
+target_compile_definitions(jpeg PRIVATE ${PRIVATE_DEFINITIONS})
 
+target_compile_options(jpeg PRIVATE ${PRIVATE_OPTIONS})
 
 # INSTALL
-INSTALL(TARGETS jpeg EXPORT jpeg_export
+install(
+  TARGETS jpeg
+  EXPORT jpeg_export
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-  )
+  INCLUDES
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-INSTALL(FILES 
-  ${LIBJPEG_PUBLIC_HEADERS} 
-  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-  )
-
+install(FILES ${LIBJPEG_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

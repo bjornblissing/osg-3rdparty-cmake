@@ -65,7 +65,7 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.34
+Latest version tested: 1.6.37
 
 Sources for libpng can be downloaded from:
 
@@ -74,7 +74,7 @@ http://www.libpng.org/pub/png/libpng.html
 
 libjpeg
 -------
-Latest version tested: 9c
+Latest version tested: 9d
 
 Sources for libjpeg can be downloaded from:
 
@@ -83,18 +83,16 @@ http://www.ijg.org/
 
 libtiff
 -------
-Latest version tested: 4.0.9
+Latest version tested: 4.2.0
 
 Sources for libtiff can be downloaded from:
 
-http://www.libtiff.org
-
-**Note:** FTP link to *Master Download Site* is currently broken. New location is http://download.osgeo.org/libtiff/
+https://gitlab.com/libtiff/libtiff
 
 
 FreeType
 --------
-Latest version tested: 2.9.1
+Latest version tested: 2.10.4
 
 Sources for FreeType can be downloaded from:
 
@@ -112,27 +110,17 @@ https://github.com/markkilgard/glut
 
 GIFLIB
 ------
-Latest version tested: 5.1.4
+Latest version tested: 5.2.1
 
 Sources for GIFLIB can be downloaded from:
 
 http://sourceforge.net/projects/giflib/
 
 
-MINIZIP
--------
-
-Latest version tested: nmoinvaz/minizip@dac37702b3fab4068ac9a7c4a992df7f0e4f14df
-
-Sources for MINIZIP can be downloaded from:
-
-http://github.com/nmoinvaz/minizip
-
-
 cURL
 ----
 
-Latest version tested: 7.60.0
+Latest version tested: 7.76.1
 
 Sources for cURL can be downloaded from:
 
