@@ -28,7 +28,12 @@ set(CURL_PUBLIC_HEADERS
     ${CURL_SOURCE_DIR}/include/curl/curlver.h
     ${CURL_SOURCE_DIR}/include/curl/easy.h
     ${CURL_SOURCE_DIR}/include/curl/multi.h
-    ${CURL_SOURCE_DIR}/include/curl/system.h)
+    ${CURL_SOURCE_DIR}/include/curl/system.h
+    ${CURL_SOURCE_DIR}/include/curl/mprintf.h
+    ${CURL_SOURCE_DIR}/include/curl/options.h
+    ${CURL_SOURCE_DIR}/include/curl/stdcheaders.h
+    ${CURL_SOURCE_DIR}/include/curl/typecheck-gcc.h
+    ${CURL_SOURCE_DIR}/include/curl/urlapi.h)
 set(CURL_PRIVATE_HEADERS
     ${CURL_SOURCE_DIR}/lib/altsvc.h
     ${CURL_SOURCE_DIR}/lib/amigaos.h
