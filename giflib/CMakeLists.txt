@@ -7,7 +7,7 @@ string(REGEX REPLACE ".*#define[ \t]+GIFLIB_MINOR[ \t]+([0-9]+).*" "\\1"
                      GIFLIB_MINOR_VERSION ${_gif_lib_h_contents})
 string(REGEX REPLACE ".*#define[ \t]+GIFLIB_RELEASE[ \t]+([0-9]+).*" "\\1"
                      GIFLIB_RELEASE_VERSION ${_gif_lib_h_contents})
-
+cmake_policy(SET CMP0115 OLD)
 project(
   giflib
   VERSION
