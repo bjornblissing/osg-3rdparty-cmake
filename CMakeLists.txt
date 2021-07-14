@@ -4,7 +4,7 @@ project(OpenscenegraphThirdParty)
 
 # Only enable release and debug builds
 if(CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_CONFIGURATION_TYPES Debug Release)
+  set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo)
   set(CMAKE_CONFIGURATION_TYPES
       "${CMAKE_CONFIGURATION_TYPES}"
       CACHE STRING "Reset the configurations to what we need" FORCE)
@@ -17,6 +17,7 @@ elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
   set(BITS "x86")
 endif()
 
+cmake_policy(SET CMP0115 OLD)
 if(MSVC)
   if(${MSVC_VERSION} EQUAL 1600)
     set(TOOLSET "v100") # Visual Studio 2010
@@ -29,7 +30,7 @@ if(MSVC)
   elseif(${MSVC_VERSION} GREATER 1910 AND ${MSVC_VERSION} LESS 1920)
     set(TOOLSET "v141") # Visual Studio 2017
   elseif(${MSVC_VERSION} GREATER 1919)
-    set(TOOLSET "v141") # Visual Studio 2019
+    set(TOOLSET "v142") # Visual Studio 2019
   endif()
 endif()
 
