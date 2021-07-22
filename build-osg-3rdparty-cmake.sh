@@ -27,7 +27,8 @@ glut=${SRC}/glut
 install=${ThirdParty_ROOT}/publish/linux/${arch}
 
 echo ${install}
-
+# copy file 
+cp ./../osg-3rdparty-cmake-modify/afshaper.h ${ThirdParty_ROOT}/sources/OSG/osg-3rdparty-cmake/3rdparty/src/freetype/src/autofit/
 #=========================================================================================================================
 # freetype
 echo === build freetype
