@@ -17,7 +17,12 @@ elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
   set(BITS "x86")
 endif()
 
-cmake_policy(SET CMP0115 OLD)
+
+#IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.19)
+IF(POLICY CMP0115)
+	cmake_policy(SET CMP0115 OLD)
+ENDIF()
+
 if(MSVC)
   if(${MSVC_VERSION} EQUAL 1600)
     set(TOOLSET "v100") # Visual Studio 2010
