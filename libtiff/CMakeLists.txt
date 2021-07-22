@@ -14,12 +14,25 @@ project(
 # platforms.
 include(GNUInstallDirs)
 
+MESSAGE(STATUS "operation system is ${CMAKE_SYSTEM}")
+ 
+
+#IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
+#include(${CMAKE_CURRENT_SOURCE_DIR}/linux.cmake)
+# Generate headers
+# configure_file(${LIBTIFF_SOURCE_DIR}/libtiff/tif_config.h.cmake.in
+#               ${CMAKE_CURRENT_BINARY_DIR}/tif_config.h
+#               @ONLY)
+#      configure_file(${LIBTIFF_SOURCE_DIR}/libtiff/tiffconf.h.cmake.in
+#               ${CMAKE_CURRENT_BINARY_DIR}/tiffconf.h
+#               @ONLY)
+#endif()
 if(MSVC)
   set(tif_config "${LIBTIFF_SOURCE_DIR}/libtiff/tif_config.vc.h")
   set(tiffconf "${LIBTIFF_SOURCE_DIR}/libtiff/tiffconf.vc.h")
 endif()
 
-if(MINGW)
+if(MINGW OR UNIX)
   set(tif_config "${CMAKE_CURRENT_SOURCE_DIR}/tif_config.mingw.h")
   set(tiffconf "${CMAKE_CURRENT_SOURCE_DIR}/tiffconf.mingw.h")
 endif()
@@ -79,9 +92,11 @@ set(LIBTIFF_SRCS
     ${LIBTIFF_SOURCE_DIR}/libtiff/tif_tile.c
     ${LIBTIFF_SOURCE_DIR}/libtiff/tif_version.c
     ${LIBTIFF_SOURCE_DIR}/libtiff/tif_warning.c
-    ${LIBTIFF_SOURCE_DIR}/libtiff/tif_win32.c
     ${LIBTIFF_SOURCE_DIR}/libtiff/tif_write.c
     ${LIBTIFF_SOURCE_DIR}/libtiff/tif_zip.c)
+if(MSVC)
+    set(LIBTIFF_SRCS ${LIBTIFF_SRCS} ${LIBTIFF_SOURCE_DIR}/libtiff/tif_win32.c)
+endif()
 
 # Check if we have SNPRINTF:
 include(CheckFunctionExists)
