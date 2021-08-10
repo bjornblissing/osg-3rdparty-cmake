@@ -1,3 +1,8 @@
+set BUILD_FOLDER=%cd%
+
+REM Disable the warning for detached head
+git config --global advice.detachedHead false
+
 REM zlib
 git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/3rdparty/zlib
 
@@ -19,7 +24,7 @@ REM glut
 git clone https://github.com/markkilgard/glut.git c:/3rdparty/glut
 cd c:\3rdparty\glut
 git reset --hard 8cd96cb440f1f2fac3a154227937be39d06efa53
-cd %APPVEYOR_BUILD_FOLDER%
+cd %BUILD_FOLDER%
 
 REM giflib
 git clone --depth 1 --single-branch --branch 5.2.1 https://git.code.sf.net/p/giflib/code.git c:/3rdparty/giflib

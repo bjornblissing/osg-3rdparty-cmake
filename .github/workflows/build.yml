@@ -1,0 +1,78 @@
+# Workflow to build binary artifacts for tagged versions
+name: Build
+
+
+# Triggers the workflow when a new tag is pushed (but disregard new branches)
+on: 
+  push:
+    tags:
+    - '*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a matrix job called "Release"
+  Release:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        include:
+          - name: v141-x86
+            os: windows-2016
+            generator: "Visual Studio 15 2017"
+            arch: Win32
+          - name: v141-x64
+            os: windows-2016
+            generator: "Visual Studio 15 2017"
+            arch: x64
+          - name: v142-x86
+            os: windows-2019
+            generator: "Visual Studio 16 2019"
+            arch: Win32
+          - name: v142-x64
+            os: windows-2019
+            generator: "Visual Studio 16 2019"
+            arch: x64
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Cache source code
+        uses: actions/cache@v2
+        with:
+          # Cache the downloaded external source code and only update the cache when the download_dependencies.bat file is changed
+          path: c:/3rdparty
+          key: ${{ hashFiles('download_dependencies.bat') }}
+
+      # Download source code
+      - name: Download source code
+        run: .\download_dependencies.bat
+          
+      # Compile code
+      - name: Compile code
+        run: |
+            mkdir build
+            cd build
+            cmake ${env:GITHUB_WORKSPACE} -G "${{ matrix.generator }}" -A ${{ matrix.arch }} -DZLIB_SOURCE_DIR=c:/3rdparty/zlib -DLIBPNG_SOURCE_DIR=c:/3rdparty/libpng -DLIBJPEG_SOURCE_DIR=c:/3rdparty/libjpeg -DLIBTIFF_SOURCE_DIR=c:/3rdparty/tiff -DFREETYPE_SOURCE_DIR=c:/3rdparty/freetype -DGLUT_SOURCE_DIR=c:/3rdparty/glut -DGIFLIB_SOURCE_DIR=c:/3rdparty/giflib -DCURL_SOURCE_DIR=c:/3rdparty/curl -DCMAKE_INSTALL_PREFIX="C:/projects/osg-3rdparty-cmake/build/3rdParty/${{ matrix.name }}"
+            cmake --build . --config "Debug" --target install 
+            cmake --build . --config "Release" --target install
+            
+      - name: Compress archive
+        run: |
+          cd C:\projects\osg-3rdparty-cmake\build\3rdParty\${{ matrix.name }}
+          7z a C:\projects\osg-3rdparty-cmake\${{ matrix.name }}.zip . 
+          
+      - name: Publish artifact
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "c:\\projects\\osg-3rdparty-cmake\\${{ matrix.name }}.zip"
+          allowUpdates: true
+          bodyFile: "versions.md"
+          token: ${{ secrets.GITHUB_TOKEN }}

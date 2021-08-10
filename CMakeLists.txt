@@ -29,7 +29,7 @@ if(MSVC)
   elseif(${MSVC_VERSION} GREATER 1910 AND ${MSVC_VERSION} LESS 1920)
     set(TOOLSET "v141") # Visual Studio 2017
   elseif(${MSVC_VERSION} GREATER 1919)
-    set(TOOLSET "v141") # Visual Studio 2019
+    set(TOOLSET "v142") # Visual Studio 2019
   endif()
 endif()
 

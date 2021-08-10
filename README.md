@@ -10,22 +10,20 @@ The source code for respective library has to be downloaded separately, see down
 By building the INSTALL target for both debug and release these scripts will create a folder named `3rdParty`.
 Inside this folder there will folders created to represent each platform toolset.
 
-
-### Status: [![Build status](https://ci.appveyor.com/api/projects/status/xtrxxowo68nyrj9m?svg=true)](https://ci.appveyor.com/project/bjornblissing/osg-3rdparty-cmake)
+### Status: ![Build status](https://github.com/bjornblissing/osg-3rdparty-cmake/actions/workflows/build.yml/badge.svg)
 
 
 Prebuilt versions
 ----------------
 
+Prebuilt version can be found under *Releases*. Version numbers if the included dependencies can be found in the [versions.md](versions.md) file.
+
 Toolset | Prebuilt archive
 ------------ | -------------
-Visual Studio 2015 32-bit | [v140-x86.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v140-x86.zip?job=Environment%3A+Name%3Dv140-x86%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2015%2C+Generator%3DVisual+Studio+14+2015)
-Visual Studio 2015 64-bit | [v140-x64.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v140-x64.zip?job=Environment%3A+Name%3Dv140-x64%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2015%2C+Generator%3DVisual+Studio+14+2015+Win64)
-Visual Studio 2017 32-bit | [v141-x86.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v141-x86.zip?job=Environment%3A+Name%3Dv141-x86%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2017%2C+Generator%3DVisual+Studio+15+2017)
-Visual Studio 2017 64-bit | [v141-x64.zip](https://ci.appveyor.com/api/projects/bjornblissing/osg-3rdparty-cmake/artifacts/v141-x64.zip?job=Environment%3A+Name%3Dv141-x64%2C+APPVEYOR_BUILD_WORKER_IMAGE%3DVisual+Studio+2017%2C+Generator%3DVisual+Studio+15+2017+Win64)
-
-
-_Prebuilt versions courtesy of [AppVeyor](https://www.appveyor.com)_
+Visual Studio 2017 32-bit | v141-x86.zip
+Visual Studio 2017 64-bit | v141-x64.zip
+Visual Studio 2019 32-bit | v142-x86.zip
+Visual Studio 2019 64-bit | v142-x64.zip
 
 
 License
@@ -56,8 +54,6 @@ In your binary directory there will now be a folder named `3rdParty` with a sub-
 
 zlib
 ----
-Latest version tested: 1.2.11
-
 Sources for zlib can be downloaded from:
 
 http://www.zlib.net/
@@ -65,8 +61,6 @@ http://www.zlib.net/
 
 libpng
 ------
-Latest version tested: 1.6.37
-
 Sources for libpng can be downloaded from:
 
 http://www.libpng.org/pub/png/libpng.html
@@ -74,8 +68,6 @@ http://www.libpng.org/pub/png/libpng.html
 
 libjpeg
 -------
-Latest version tested: 9d
-
 Sources for libjpeg can be downloaded from:
 
 http://www.ijg.org/
@@ -83,8 +75,6 @@ http://www.ijg.org/
 
 libtiff
 -------
-Latest version tested: 4.2.0
-
 Sources for libtiff can be downloaded from:
 
 https://gitlab.com/libtiff/libtiff
@@ -92,8 +82,6 @@ https://gitlab.com/libtiff/libtiff
 
 FreeType
 --------
-Latest version tested: 2.10.4
-
 Sources for FreeType can be downloaded from:
 
 http://www.freetype.org/
@@ -101,8 +89,6 @@ http://www.freetype.org/
 
 GLUT
 ----
-Latest version tested: markkilgard/glut@8cd96cb440f1f2fac3a154227937be39d06efa53
-
 Sources for GLUT can be downloaded from:
 
 https://github.com/markkilgard/glut
@@ -110,8 +96,6 @@ https://github.com/markkilgard/glut
 
 GIFLIB
 ------
-Latest version tested: 5.2.1
-
 Sources for GIFLIB can be downloaded from:
 
 http://sourceforge.net/projects/giflib/
@@ -119,9 +103,6 @@ http://sourceforge.net/projects/giflib/
 
 cURL
 ----
-
-Latest version tested: 7.76.1
-
 Sources for cURL can be downloaded from:
 
 http://curl.haxx.se/

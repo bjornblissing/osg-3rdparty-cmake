@@ -1,0 +1,10 @@
+Library | Version
+------- | -------
+zlib | 1.2.11
+libpng | 1.6.37
+libjpeg | 9d
+libtiff | 4.2.0
+FreeType | 2.10.4
+GLUT | SHA:8cd96cb440f1f2fac3a154227937be39d06efa53
+GIFLIB | 5.2.1
+cURL | 7.76.1
