@@ -4,7 +4,7 @@ REM Disable the warning for detached head
 git config --global advice.detachedHead false
 
 REM zlib
-git clone --depth 1 --single-branch --branch v1.2.11 https://github.com/madler/zlib.git c:/3rdparty/zlib
+git clone --depth 1 --single-branch --branch v1.2.13 https://github.com/madler/zlib.git c:/3rdparty/zlib
 
 REM libpng
 git clone --depth 1 --single-branch --branch v1.6.37  git://git.code.sf.net/p/libpng/code.git c:/3rdparty/libpng
