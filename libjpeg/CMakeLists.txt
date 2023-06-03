@@ -9,7 +9,6 @@ string(REGEX REPLACE "([0-9]+)[a-z]+" "\\1" JPEG_MAJOR_VERSION
                      ${JPEG_FULL_VERSION})
 string(REGEX REPLACE "[0-9]+([a-z]+)" "\\1" JPEG_MINOR_VERSION
                      ${JPEG_FULL_VERSION})
-
 # Convert minor version letter to number
 if("${JPEG_MINOR_VERSION}" MATCHES [aA])
   set(JPEG_MINOR_VERSION 0)
@@ -31,6 +30,7 @@ else()
   message(FATAL_ERROR "Minor JPEG version exceeds version H")
 endif()
 
+
 project(
   jpeg
   VERSION ${JPEG_MAJOR_VERSION}.${JPEG_MINOR_VERSION}
@@ -40,6 +40,7 @@ project(
 # platforms.
 include(GNUInstallDirs)
 
+set(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.txt")
 if(MSVC)
   set(jconfig "${LIBJPEG_SOURCE_DIR}/jconfig.vc")
 endif()

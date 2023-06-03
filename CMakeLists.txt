@@ -4,7 +4,7 @@ project(OpenscenegraphThirdParty)
 
 # Only enable release and debug builds
 if(CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_CONFIGURATION_TYPES Debug Release)
+  set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo)
   set(CMAKE_CONFIGURATION_TYPES
       "${CMAKE_CONFIGURATION_TYPES}"
       CACHE STRING "Reset the configurations to what we need" FORCE)
@@ -16,6 +16,12 @@ if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
 elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
   set(BITS "x86")
 endif()
+
+
+#IF(CMAKE_VERSION VERSION_GREATER_EQUAL 3.19)
+IF(POLICY CMP0115)
+	cmake_policy(SET CMP0115 OLD)
+ENDIF()
 
 if(MSVC)
   if(${MSVC_VERSION} EQUAL 1600)
